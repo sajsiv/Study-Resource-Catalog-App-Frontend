@@ -75,12 +75,12 @@ export default function ResourceForm(): JSX.Element {
     event.preventDefault();
   };
 
-  console.log(formData)
+  console.log(formData);
   //hiya
 
   return (
     <>
-    <h1>Resource Form</h1>
+      <h1>Resource Form</h1>
       <div className="resource-form">
         <form onSubmit={handleSubmit}>
           <label htmlFor="resource-form-resourceName">Resource Name:</label>
