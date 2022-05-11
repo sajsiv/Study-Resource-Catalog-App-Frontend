@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 interface FormDataInterface {
   resourceName: string;
   authorName: string;
@@ -40,7 +40,7 @@ export default function ResourceForm(): JSX.Element {
     "organisation",
   ];
 
-  console.log(setFormData)
+  console.log(setFormData);
   return (
     <>
       <div className="resource-form">
