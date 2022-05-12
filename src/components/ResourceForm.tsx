@@ -76,7 +76,9 @@ export default function ResourceForm(): JSX.Element {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await axios.post('https://localhost:4000/resources', formData)
+    const response = await axios.post('http://localhost:4000/resources', formData)
+    console.log(response)
+    
   };
 
   console.log(formData);
