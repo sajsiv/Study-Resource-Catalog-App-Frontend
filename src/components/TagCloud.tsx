@@ -1,10 +1,10 @@
-import tagCloudElement from 'react-tag-cloud'
+import tagCloudElement from "react-tag-cloud";
 // import randomColor from 'randomcolor';
 
 export default function TagCloud() {
-    return (
-        <>
-           {/* <tagCloudElement 
+  return (
+    <>
+      {/* <tagCloudElement 
        style={{
         fontFamily: 'sans-serif',
         fontSize: 30,
@@ -20,6 +20,6 @@ export default function TagCloud() {
         <div rotate={90}>cloud</div>
         ...
         </tagCloudElement> */}
-        </>
-    )
+    </>
+  );
 }

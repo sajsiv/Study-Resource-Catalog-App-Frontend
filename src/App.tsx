@@ -1,13 +1,13 @@
 import MainContent from "./components/MainContent";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 
 function App(): JSX.Element {
-  return(
+  return (
     <>
-  <MainContent />
-  <Footer />
-  </>
-  )
+      <MainContent />
+      <Footer />
+    </>
+  );
 }
 
 export default App;
