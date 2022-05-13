@@ -1,4 +1,4 @@
-export default function MyStudyList() {
+export default function MyStudyList(): JSX.Element {
   //map fetch onto SingleStudyResource.tsx
 
   return (

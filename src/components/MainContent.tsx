@@ -12,7 +12,7 @@ export default function MainContent(): JSX.Element {
   >("home");
 
   const [loggedIn, setLoggedIn] = useState(true);
-
+  console.log(setLoggedIn);
   function handleUploadClick() {
     setView("form");
   }
