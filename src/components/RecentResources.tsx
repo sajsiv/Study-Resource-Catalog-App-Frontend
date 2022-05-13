@@ -26,10 +26,10 @@ export default function RecentResources(): JSX.Element {
     };
     fetchResources();
   }, []);
-  //hiya
+
   return (
     <>
-      <h1>Recent Banana Resources</h1>
+      <h1>Recent Resources</h1>
       {allResources.map((resource) => (
         <SingleStudyResource
           resourceName={resource.name}
