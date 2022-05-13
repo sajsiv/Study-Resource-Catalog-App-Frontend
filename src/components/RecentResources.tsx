@@ -26,8 +26,8 @@ export default function RecentResources(): JSX.Element {
     };
     fetchResources();
   }, []);
-  
-  const slicedResources = allResources.slice(0,10)
+
+  const slicedResources = allResources.slice(0, 10);
 
   return (
     <>
