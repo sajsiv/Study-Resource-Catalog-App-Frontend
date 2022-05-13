@@ -1,7 +1,7 @@
-import tagCloudElement from "react-tag-cloud";
+//import tagCloudElement from "react-tag-cloud";
 // import randomColor from 'randomcolor';
 
-export default function TagCloud() {
+export default function TagCloud(): JSX.Element {
   return (
     <>
       {/* <tagCloudElement 
