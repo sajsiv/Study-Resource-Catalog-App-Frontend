@@ -16,7 +16,11 @@ interface SingleStudyResourceProps {
 export default function SingleStudyResource(
   props: SingleStudyResourceProps
 ): JSX.Element {
+
+
+
   return (
+    <a href={"http://localhost:3000/resource/" + props.resourceId}>
     <section className="single-resource-element">
       <h3>{props.resourceName}</h3>
       <h3>{props.authorName}</h3>
@@ -28,7 +32,7 @@ export default function SingleStudyResource(
       <h3>{props.buildPhaseWeek}</h3>
       <h3>{props.recommendation}</h3>
       <p>{props.reasonForRecommendation}</p>
-      <h3>{props.resourceType}</h3>
     </section>
+    </a>
   );
 }

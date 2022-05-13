@@ -30,6 +30,7 @@ export default function RecentResources(): JSX.Element {
   return (
     <>
       <h1>Recent Resources</h1>
+      <p>Find the latest study resources being shared by members!</p>
       {allResources.map((resource) => (
         <SingleStudyResource
           resourceName={resource.name}
