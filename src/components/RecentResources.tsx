@@ -26,7 +26,7 @@ export default function RecentResources(): JSX.Element {
     };
     fetchResources();
   }, []);
-//hiya
+  //hiya
   return (
     <>
       <h1>Recent Banana Resources</h1>
