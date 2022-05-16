@@ -1,12 +1,17 @@
 import MainContent from "./components/MainContent";
-import Footer from "./components/Footer";
+import SingleStudyResourcePage from "./components/SingleStudyResourcePage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App(): JSX.Element {
   return (
-    <>
-      <MainContent />
-      <Footer />
+    <Router>
+      <>
+    <Routes>
+      <Route path="/" element={<MainContent/>}/>
+      <Route path="/resource/:resource_id" element={<SingleStudyResourcePage />}/>
+    </Routes>
     </>
+    </Router>
   );
 }
 
