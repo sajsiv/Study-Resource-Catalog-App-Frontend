@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 import SingleStudyResource from "./SingleStudyResource";
-import {RecentResourcesInterface} from "./interfaces";
+import { RecentResourcesInterface } from "./interfaces";
 
-
-export default function RecentResources(props: RecentResourcesInterface): JSX.Element {
-
+export default function RecentResources(
+  props: RecentResourcesInterface
+): JSX.Element {
   return (
     <>
       <h1>Recent Resources</h1>
