@@ -7,6 +7,7 @@ export default function RecentResources(
   return (
     <>
       <h1>Recent Resources</h1>
+      <p>Find the latest study resources being shared by members!</p>
       {props.allResources.map((resource) => (
         <SingleStudyResource
           resourceName={resource.name}
