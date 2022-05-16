@@ -22,7 +22,7 @@ interface ResourceDataInterface {
 
 export default function SingleStudyResourcePage(): JSX.Element {
   const { resource_id } = useParams();
-  console.log(backendURL + "resources/" + resource_id)
+  console.log(backendURL + "resources/" + resource_id);
 
   const [currentResource, setCurrentResources] =
     useState<ResourceDataInterface>({
