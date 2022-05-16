@@ -7,13 +7,14 @@ import SearchTermResources from "./SearchTermResources";
 import UserRecommendations from "./UserRecommendations";
 import MyStudyList from "./MyStudyList";
 import { useState, useEffect } from "react";
-import { ResourceDataInterface } from "./interfaces";
+import { ResourceDataInterface, AllUsersInterface } from "./interfaces";
 import { backendURL } from "../utils/URLs";
 
 import axios from "axios";
 // import SingleStudyResource from "./SingleStudyResource";
 
 export default function MainContent(): JSX.Element {
+  
   const [view, setView] = useState<
     "home" | "form" | "study-list" | "resource" | "random"
   >("home");
@@ -22,6 +23,8 @@ export default function MainContent(): JSX.Element {
   const [isSearchTermClicked, setIsSearchTermClicked] =
     useState<boolean>(false);
   const [searchList, setSearchList] = useState<ResourceDataInterface[]>([]);
+  const [allUsers, setAllUsers] = useState<AllUsersInterface[]>([]);
+  const [currentUser, setCurrentUser] = useState("");
 
   useEffect(() => {
     const fetchResources = async () => {
@@ -33,8 +36,18 @@ export default function MainContent(): JSX.Element {
     fetchResources();
   }, []);
 
-  const [loggedIn, setLoggedIn] = useState(true);
-  console.log(setLoggedIn);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await axios.get(backendURL + "users");
+      const allUsers = await response.data;
+      console.log(allUsers);
+      setAllUsers(allUsers);
+    };
+    fetchUsers();
+  }, []);
+
+
   function handleUploadClick() {
     setView("form");
   }
@@ -55,12 +68,20 @@ export default function MainContent(): JSX.Element {
   }
   console.log(searchList);
 
+  function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>){
+    setCurrentUser(e.target.value)
+  }
+
   console.log(searchTerm);
   return (
     <>
       <Header />
       {view === "home" && (
         <>
+          <select onChange={handleUserChange}>
+            <option value="Select a user">-- Select a user --</option>
+              {allUsers.map((user) => <option key={user.userid} value={user.userid}>{user.name}</option>)}
+              </select>
           <div className="button-bar">
             <button>See Random</button>
             <button>Popular Content</button>
@@ -80,7 +101,7 @@ export default function MainContent(): JSX.Element {
           <div className="tags">
             <TagCloud />
           </div>
-          {loggedIn && (
+          {currentUser && (
             <div className="upload">
               <h1>Upload Resource</h1>
               <button onClick={handleUploadClick} className="upload--button">

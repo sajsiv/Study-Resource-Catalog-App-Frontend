@@ -16,3 +16,9 @@ export interface ResourceDataInterface {
 export interface RecentResourcesInterface {
   allResources: ResourceDataInterface[];
 }
+
+export interface AllUsersInterface {
+  is_faculty: boolean;
+  name: string;
+  userid: number;
+}
