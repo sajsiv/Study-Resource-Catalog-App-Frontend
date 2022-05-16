@@ -3,17 +3,37 @@ import Header from "./Header";
 import Footer from "./Footer";
 import TagCloud from "./TagCloud";
 import RecentResources from "./RecentResources";
+import SearchTermResources from "./SearchTermResources";
 import UserRecommendations from "./UserRecommendations";
 import MyStudyList from "./MyStudyList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ResourceDataInterface } from "./interfaces";
+
+import axios from "axios";
+// import SingleStudyResource from "./SingleStudyResource";
 
 export default function MainContent(): JSX.Element {
   const [view, setView] = useState<
     "home" | "form" | "study-list" | "resource" | "random"
   >("home");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [allResources, setAllResources] = useState<ResourceDataInterface[]>([]);
+  const [isSearchTermClicked, setIsSearchTermClicked] =
+    useState<boolean>(false);
+  const [searchList, setSearchList] = useState<ResourceDataInterface[]>([]);
+
+  useEffect(() => {
+    const fetchResources = async () => {
+      const response = await axios.get("http://localhost:4000/resources");
+      const allResources = await response.data;
+      console.log(allResources);
+      setAllResources(allResources);
+    };
+    fetchResources();
+  }, []);
 
   const [loggedIn, setLoggedIn] = useState(true);
-  console.log(setLoggedIn);
+  console.log(setLoggedIn)
   function handleUploadClick() {
     setView("form");
   }
@@ -26,6 +46,15 @@ export default function MainContent(): JSX.Element {
     setView("study-list");
   }
 
+  function handleSearchButtonClick() {
+    setSearchList(
+      allResources.filter((object) => object.name.includes(searchTerm))
+    );
+    setIsSearchTermClicked(true);
+  }
+  console.log(searchList);
+
+  console.log(searchTerm);
   return (
     <>
       <Header />
@@ -37,9 +66,15 @@ export default function MainContent(): JSX.Element {
             <button onClick={handleStudyListClick}>My Study List</button>
           </div>
           <div className="search">
-            <input type="text" placeholder="Search a resource"></input>
+            <input
+              onChange={(event) => setSearchTerm(event.target.value)}
+              type="text"
+              placeholder="Search a resource"
+            ></input>
             <br />
-            <button>Search</button>
+            <button disabled={!searchTerm} onClick={handleSearchButtonClick}>
+              Search
+            </button>
           </div>
           <div className="tags">
             <TagCloud />
@@ -52,7 +87,17 @@ export default function MainContent(): JSX.Element {
               </button>
             </div>
           )}
-          <RecentResources />
+
+          {isSearchTermClicked && (
+            <div className="search-list">
+              <h1>Search List</h1>
+              <SearchTermResources allResources={searchList} />
+              <button onClick={handleUploadClick} className="search--list">
+                +
+              </button>
+            </div>
+          )}
+          <RecentResources allResources={allResources} />
           <UserRecommendations />
         </>
       )}

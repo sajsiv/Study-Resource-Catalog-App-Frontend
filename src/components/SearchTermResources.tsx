@@ -1,13 +1,12 @@
 import SingleStudyResource from "./SingleStudyResource";
 import { RecentResourcesInterface } from "./interfaces";
 
-export default function RecentResources(
+export default function searchTermResources(
   props: RecentResourcesInterface
 ): JSX.Element {
   return (
     <>
-      <h1>Recent Resources</h1>
-      <p>Find the latest study resources being shared by members!</p>
+      {/* <h1>Search Term Resources</h1> */}
       {props.allResources.map((resource) => (
         <SingleStudyResource
           resourceName={resource.name}
