@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { backendURL } from "../utils/URLs";
 
 interface FormDataInterface {
   resourceName: string;
@@ -76,10 +77,7 @@ export default function ResourceForm(): JSX.Element {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const response = await axios.post(
-      "http://localhost:4000/resources",
-      formData
-    );
+    const response = await axios.post(backendURL + "resources", formData);
     console.log(response);
   };
 
