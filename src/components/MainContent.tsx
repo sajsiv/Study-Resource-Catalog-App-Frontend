@@ -1,5 +1,6 @@
 import ResourceForm from "./ResourceForm";
 import Header from "./Header";
+import Footer from "./Footer";
 import TagCloud from "./TagCloud";
 import RecentResources from "./RecentResources";
 import UserRecommendations from "./UserRecommendations";
@@ -81,6 +82,7 @@ export default function MainContent(): JSX.Element {
           <MyStudyList />
         </section>
       )}
+      <Footer/>
     </>
   );
 }
