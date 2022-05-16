@@ -8,6 +8,7 @@ import UserRecommendations from "./UserRecommendations";
 import MyStudyList from "./MyStudyList";
 import { useState, useEffect } from "react";
 import { ResourceDataInterface } from "./interfaces";
+import { backendURL } from "../utils/URLs";
 
 import axios from "axios";
 // import SingleStudyResource from "./SingleStudyResource";
@@ -24,7 +25,7 @@ export default function MainContent(): JSX.Element {
 
   useEffect(() => {
     const fetchResources = async () => {
-      const response = await axios.get("http://localhost:4000/resources");
+      const response = await axios.get(backendURL + "resources");
       const allResources = await response.data;
       console.log(allResources);
       setAllResources(allResources);
@@ -33,7 +34,7 @@ export default function MainContent(): JSX.Element {
   }, []);
 
   const [loggedIn, setLoggedIn] = useState(true);
-  console.log(setLoggedIn)
+  console.log(setLoggedIn);
   function handleUploadClick() {
     setView("form");
   }
@@ -127,7 +128,7 @@ export default function MainContent(): JSX.Element {
           <MyStudyList />
         </section>
       )}
-      <Footer/>
+      <Footer />
     </>
   );
 }
