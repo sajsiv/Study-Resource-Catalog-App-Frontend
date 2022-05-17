@@ -10,7 +10,7 @@ import { ResourceDataInterface } from "./interfaces";
 import { backendURL } from "../utils/URLs";
 import { TagCloud } from "react-tagcloud";
 import axios from "axios";
-import { count } from "console";
+
 // import SingleStudyResource from "./SingleStudyResource";
 
 interface TagInterface {
