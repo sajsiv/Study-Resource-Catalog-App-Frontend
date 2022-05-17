@@ -14,7 +14,6 @@ import axios from "axios";
 // import SingleStudyResource from "./SingleStudyResource";
 
 export default function MainContent(): JSX.Element {
-  
   const [view, setView] = useState<
     "home" | "form" | "study-list" | "resource" | "random"
   >("home");
@@ -36,7 +35,6 @@ export default function MainContent(): JSX.Element {
     fetchResources();
   }, []);
 
-
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await axios.get(backendURL + "users");
@@ -46,7 +44,6 @@ export default function MainContent(): JSX.Element {
     };
     fetchUsers();
   }, []);
-
 
   function handleUploadClick() {
     setView("form");
@@ -60,16 +57,26 @@ export default function MainContent(): JSX.Element {
     setView("study-list");
   }
 
+  //hiya
   function handleSearchButtonClick() {
     setSearchList(
-      allResources.filter((object) => object.name.includes(searchTerm))
+      allResources.filter(
+        (object) =>
+          object.name.includes(searchTerm) ||
+          object.description.includes(searchTerm) ||
+          object.content_type.includes(searchTerm) ||
+          object.stage.includes(searchTerm) ||
+          object.tags.includes(searchTerm) ||
+          object.author_name.includes(searchTerm)
+      )
     );
+
     setIsSearchTermClicked(true);
   }
   console.log(searchList);
 
-  function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>){
-    setCurrentUser(e.target.value)
+  function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setCurrentUser(e.target.value);
   }
 
   console.log(searchTerm);
@@ -80,8 +87,12 @@ export default function MainContent(): JSX.Element {
         <>
           <select onChange={handleUserChange}>
             <option value="Select a user">-- Select a user --</option>
-              {allUsers.map((user) => <option key={user.userid} value={user.userid}>{user.name}</option>)}
-              </select>
+            {allUsers.map((user) => (
+              <option key={user.userid} value={user.userid}>
+                {user.name}
+              </option>
+            ))}
+          </select>
           <div className="button-bar">
             <button>See Random</button>
             <button>Popular Content</button>
@@ -114,9 +125,6 @@ export default function MainContent(): JSX.Element {
             <div className="search-list">
               <h1>Search List</h1>
               <SearchTermResources allResources={searchList} />
-              <button onClick={handleUploadClick} className="search--list">
-                +
-              </button>
             </div>
           )}
           <RecentResources allResources={allResources} />
@@ -131,7 +139,7 @@ export default function MainContent(): JSX.Element {
             <button onClick={handleHomeClick}>Home</button>
             <button onClick={handleStudyListClick}>My Study List</button>
           </div>
-          <ResourceForm />
+          <ResourceForm userid={parseInt(currentUser)} />
         </>
       )}
 
