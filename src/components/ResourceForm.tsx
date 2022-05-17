@@ -15,7 +15,7 @@ interface FormDataInterface {
   userid: number;
 }
 
-export default function ResourceForm(props: {userid: number}): JSX.Element {
+export default function ResourceForm(props: { userid: number }): JSX.Element {
   const [formData, setFormData] = useState<FormDataInterface>({
     resourceName: "",
     authorName: "",
@@ -26,7 +26,7 @@ export default function ResourceForm(props: {userid: number}): JSX.Element {
     buildPhaseWeek: "week 1",
     recommendation: "I recommend this resource after having used it",
     reasonForRecommendation: "",
-    userid: props.userid
+    userid: props.userid,
   });
 
   const resourceTypesList = [
@@ -83,18 +83,17 @@ export default function ResourceForm(props: {userid: number}): JSX.Element {
     console.log(response);
     setFormData({
       resourceName: "",
-    authorName: "",
-    URL: "",
-    description: "",
-    tags: "",
-    resourceType: "video",
-    buildPhaseWeek: "week 1",
-    recommendation: "I recommend this resource after having used it",
-    reasonForRecommendation: "",
-    userid: props.userid
-    })
+      authorName: "",
+      URL: "",
+      description: "",
+      tags: "",
+      resourceType: "video",
+      buildPhaseWeek: "week 1",
+      recommendation: "I recommend this resource after having used it",
+      reasonForRecommendation: "",
+      userid: props.userid,
+    });
   };
-
 
   return (
     <>
