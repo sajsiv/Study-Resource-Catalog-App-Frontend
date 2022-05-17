@@ -57,6 +57,7 @@ export default function MainContent(): JSX.Element {
     setView("study-list");
   }
 
+  //hiya
   function handleSearchButtonClick() {
     setSearchList(
       allResources.filter(
