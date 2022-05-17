@@ -62,8 +62,8 @@ export default function MainContent(): JSX.Element {
 
   function handleSearchButtonClick() {
     setSearchList(
-      allResources.filter((object) => object.name.includes(searchTerm))
-    );
+      allResources.filter((object) => (object.name.includes(searchTerm) || object.description.includes(searchTerm) || object.content_type.includes(searchTerm) || object.stage.includes(searchTerm) ||  object.tags.includes(searchTerm) || object.author_name.includes(searchTerm))));
+  
     setIsSearchTermClicked(true);
   }
   console.log(searchList);
@@ -114,9 +114,6 @@ export default function MainContent(): JSX.Element {
             <div className="search-list">
               <h1>Search List</h1>
               <SearchTermResources allResources={searchList} />
-              <button onClick={handleUploadClick} className="search--list">
-                +
-              </button>
             </div>
           )}
           <RecentResources allResources={allResources} />
@@ -131,7 +128,7 @@ export default function MainContent(): JSX.Element {
             <button onClick={handleHomeClick}>Home</button>
             <button onClick={handleStudyListClick}>My Study List</button>
           </div>
-          <ResourceForm />
+          <ResourceForm userid={parseInt(currentUser)}/>
         </>
       )}
 
