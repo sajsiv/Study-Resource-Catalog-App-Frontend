@@ -1,7 +1,6 @@
 import ResourceForm from "./ResourceForm";
 import Header from "./Header";
 import Footer from "./Footer";
-import TagCloud from "./TagCloud";
 import RecentResources from "./RecentResources";
 import SearchTermResources from "./SearchTermResources";
 import UserRecommendations from "./UserRecommendations";
@@ -9,9 +8,15 @@ import MyStudyList from "./MyStudyList";
 import { useState, useEffect } from "react";
 import { ResourceDataInterface } from "./interfaces";
 import { backendURL } from "../utils/URLs";
-
+import { TagCloud } from "react-tagcloud";
 import axios from "axios";
+import { count } from "console";
 // import SingleStudyResource from "./SingleStudyResource";
+
+interface TagInterface {
+  value: string;
+  count: number;
+}
 
 export default function MainContent(): JSX.Element {
   const [view, setView] = useState<
@@ -22,15 +27,47 @@ export default function MainContent(): JSX.Element {
   const [isSearchTermClicked, setIsSearchTermClicked] =
     useState<boolean>(false);
   const [searchList, setSearchList] = useState<ResourceDataInterface[]>([]);
+  const [currentTag, setCurrentTag] = useState<string>("");
+  const [countArrayOfTags, setCountArrayOfTags] = useState<TagInterface[]>([]);
 
   useEffect(() => {
+    let tempArray = [];
+    const arrayOfTags: string[] = [];
+    const tempCountArrayOfTags: TagInterface[] = [];
     const fetchResources = async () => {
       const response = await axios.get(backendURL + "resources");
-      const allResources = await response.data;
+      const allResources: ResourceDataInterface[] = await response.data;
       console.log(allResources);
       setAllResources(allResources);
+
+      for (const resource of allResources) {
+        tempArray = resource.tags.split(", ");
+        for (const tag of tempArray) {
+          arrayOfTags.push(tag);
+        }
+      }
+      console.log("array of tags", arrayOfTags);
+      tempCountArrayOfTags.push({ value: arrayOfTags[0], count: 0 });
+      for (const tag of arrayOfTags) {
+        let tagExists = false;
+        for (const object of tempCountArrayOfTags) {
+          // console.log('iteration of tempCountArrayOFtags', tempCountArrayOfTags)
+          if (object.value === tag) {
+            object.count = object.count + 1;
+            tagExists = true;
+          }
+        }
+        if (tagExists === false) {
+          tempCountArrayOfTags.push({ value: tag, count: 1 });
+        }
+      }
+      console.log("this is final product", tempCountArrayOfTags);
+      setCountArrayOfTags(tempCountArrayOfTags);
     };
+
     fetchResources();
+    console.log("this is split tags", arrayOfTags);
+    console.log("this is countArrayOfTags", countArrayOfTags);
   }, []);
 
   const [loggedIn, setLoggedIn] = useState(true);
@@ -53,9 +90,10 @@ export default function MainContent(): JSX.Element {
     );
     setIsSearchTermClicked(true);
   }
-  console.log(searchList);
 
-  console.log(searchTerm);
+  const data = countArrayOfTags;
+
+  console.log(currentTag);
   return (
     <>
       <Header />
@@ -78,7 +116,12 @@ export default function MainContent(): JSX.Element {
             </button>
           </div>
           <div className="tags">
-            <TagCloud />
+            <TagCloud
+              minSize={12}
+              maxSize={35}
+              tags={data}
+              onClick={(tag: TagInterface) => setCurrentTag(tag.value)}
+            />
           </div>
           {loggedIn && (
             <div className="upload">

@@ -15,14 +15,24 @@ const data = [
   { value: "CSS3", count: 20 },
 ];
 
-export default function ResourceTagCloud(): JSX.Element {
+interface ResourceTagCloudProps {
+  currentTag: string;
+  setCurrentTag: (
+    string: string
+  ) => React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function ResourceTagCloud(
+  props: ResourceTagCloudProps
+): JSX.Element {
+  console.log(props.currentTag);
   return (
     <>
       <TagCloud
         minSize={12}
         maxSize={35}
         tags={data}
-        onClick={(tag: TagInterface) => alert(`'${tag.value}' was selected!`)}
+        onClick={(tag: TagInterface) => props.setCurrentTag(tag.value)}
       />
     </>
   );
