@@ -115,10 +115,6 @@ export default function MainContent(): JSX.Element {
 
   const data = countArrayOfTags;
 
-  function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setCurrentUser(e.target.value);
-  }
-
   function handleTagClick(tagValue: string) {
     searchList.length > 0
       ? setSearchList(
