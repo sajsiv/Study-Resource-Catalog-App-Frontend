@@ -33,6 +33,23 @@ main {
   font-weight: lighter;
 }
 
+.login {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+}
+
+.resource-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
 .single-resource-element {
   display: flex;
   flex-direction: column;
@@ -43,10 +60,8 @@ main {
   border-radius: 10px;
   color: black;
   padding: 20px;
-  width: 80%;
-  max-width: 1000px;
+  width: 60%;
   margin: 0px auto;
-  gap: 10px;
   box-shadow: 2px 5px 5px 1px rgba(120, 120, 120, 0.44);
 }
 
@@ -67,12 +82,26 @@ main {
   gap: 10px;
   margin-top: 20px;
   margin-bottom: 20px;
+  justify-content: center;
 }
 
 .search {
   display: flex;
   flex-direction: row;
   gap: 10px;
+  justify-content: center;
+}
+
+.tags {
+  justify-content: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.heading {
+  margin-left: 40px;
 }
 
 .upload {

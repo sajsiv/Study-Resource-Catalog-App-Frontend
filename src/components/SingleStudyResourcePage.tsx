@@ -4,7 +4,7 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import { backendURL } from "../utils/URLs";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 interface ResourceDataInterface {
   name: string;
@@ -105,15 +105,15 @@ export default function SingleStudyResourcePage(): JSX.Element {
     setCommentText("");
   }
 
-  function handleAddToStudyList(){
+  function handleAddToStudyList() {
     //post request to users study list in database
-    console.log("added resource")
+    console.log("added resource");
   }
 
   return (
     <>
       <Header />
-      <button onClick={ () => navigate(-1)}>Home</button> 
+      <button onClick={() => navigate(-1)}>Home</button>
       <button onClick={handleAddToStudyList}>Add To Study List</button>
       <section className="single-resource-element">
         <h3>{currentResource.name}</h3>

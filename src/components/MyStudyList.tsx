@@ -1,4 +1,4 @@
-import {useState} from "react"
+import { useState } from "react";
 import SingleStudyResource from "./SingleStudyResource";
 
 interface MyStudyListProps {
@@ -21,34 +21,37 @@ interface ResourceDataInterface {
 }
 
 export default function MyStudyList(props: MyStudyListProps): JSX.Element {
+  const [studyListArray, setStudyListArray] = useState<ResourceDataInterface[]>(
+    []
+  );
 
-  const [studyListArray, setStudyListArray] = useState<ResourceDataInterface[]>([])
- 
-
+  const userid = props.userid;
   //do get request and populate studyListArray with response
- 
+  console.log(setStudyListArray);
+  console.log(userid);
 
- const studyList = studyListArray.map(resource => <SingleStudyResource
-  resourceName={resource.name}
-  authorName={resource.author_name}
-  resourceType={resource.content_type}
-  creationDate={resource.creation_date}
-  URL={resource.url}
-  description={resource.description}
-  tags={resource.tags}
-  buildPhaseWeek={resource.stage}
-  recommendation={resource.original_recommendation}
-  reasonForRecommendation={resource.recommendation_reasoning}
-  userId={resource.userid}
-  resourceId={resource.resourceid}
-  key={resource.resourceid}
-  />
-  )
-
+  const studyList = studyListArray.map((resource) => (
+    <SingleStudyResource
+      resourceName={resource.name}
+      authorName={resource.author_name}
+      resourceType={resource.content_type}
+      creationDate={resource.creation_date}
+      URL={resource.url}
+      description={resource.description}
+      tags={resource.tags}
+      buildPhaseWeek={resource.stage}
+      recommendation={resource.original_recommendation}
+      reasonForRecommendation={resource.recommendation_reasoning}
+      userId={resource.userid}
+      resourceId={resource.resourceid}
+      key={resource.resourceid}
+    />
+  ));
 
   return (
     <>
       <h1>list of study resources</h1>
+      {studyList}
     </>
   );
 }
