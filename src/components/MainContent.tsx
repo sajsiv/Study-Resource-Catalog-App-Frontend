@@ -89,7 +89,14 @@ export default function MainContent(): JSX.Element {
     setView("study-list");
   }
 
-  //hiya
+  function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setCurrentUser(e.target.value);
+  }
+
+  function handleLogOut() {
+    setCurrentUser("");
+  }
+
   function handleSearchButtonClick() {
     setSearchList(
       allResources.filter(
@@ -123,19 +130,33 @@ export default function MainContent(): JSX.Element {
       console.log(displayedResources);
   }
 
+  function handleSearchTerm(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+    setSearchTerm(value);
+  }
+
+  function handleResetSearchTerm() {
+    setSearchTerm("");
+    setIsSearchTermClicked(false);
+    setSearchList([]);
+  }
+  console.log(searchTerm);
   return (
     <>
       <Header />
       {view === "home" && (
         <>
-          <select onChange={handleUserChange}>
-            <option value="Select a user">-- Select a user --</option>
-            {allUsers.map((user) => (
-              <option key={user.userid} value={user.userid}>
-                {user.name}
-              </option>
-            ))}
-          </select>
+          <div className="login">
+            <select onChange={handleUserChange} value={currentUser}>
+              <option value="">-- Select a user --</option>
+              {allUsers.map((user) => (
+                <option key={user.userid} value={user.userid}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
+            <button onClick={handleLogOut}>Log Out</button>
+          </div>
           <div className="button-bar">
             <button>See Random</button>
             <button>Popular Content</button>
@@ -143,14 +164,17 @@ export default function MainContent(): JSX.Element {
           </div>
           <div className="search">
             <input
-              onChange={(event) => setSearchTerm(event.target.value)}
+              onChange={handleSearchTerm}
               type="text"
               placeholder="Search a resource"
+              value={searchTerm}
+              name="searchTerm"
             ></input>
             <br />
             <button disabled={!searchTerm} onClick={handleSearchButtonClick}>
               Search
             </button>
+            <button onClick={handleResetSearchTerm}>Reset Search</button>
           </div>
           <div className="tags">
             <TagCloud
@@ -202,7 +226,7 @@ export default function MainContent(): JSX.Element {
           <p>
             Add resources to your list and work through them at your own pace.
           </p>
-          <MyStudyList />
+          <MyStudyList userid={parseInt(currentUser)}/>
         </section>
       )}
       <Footer />
