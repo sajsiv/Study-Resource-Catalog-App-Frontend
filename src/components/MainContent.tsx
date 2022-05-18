@@ -6,7 +6,7 @@ import SearchTermResources from "./SearchTermResources";
 import UserRecommendations from "./UserRecommendations";
 import MyStudyList from "./MyStudyList";
 import { useState, useEffect } from "react";
-import { ResourceDataInterface } from "./interfaces";
+import { ResourceDataInterface, AllUsersInterface } from "./interfaces";
 import { backendURL } from "../utils/URLs";
 import { TagCloud } from "react-tagcloud";
 import axios from "axios";
@@ -29,6 +29,8 @@ export default function MainContent(): JSX.Element {
   const [searchList, setSearchList] = useState<ResourceDataInterface[]>([]);
   const [currentTag, setCurrentTag] = useState<string>("");
   const [countArrayOfTags, setCountArrayOfTags] = useState<TagInterface[]>([]);
+  const [allUsers, setAllUsers] = useState<AllUsersInterface[]>([]);
+  const [currentUser, setCurrentUser] = useState("");
 
   useEffect(() => {
     let tempArray = [];
@@ -70,8 +72,16 @@ export default function MainContent(): JSX.Element {
     console.log("this is countArrayOfTags", countArrayOfTags);
   }, []);
 
-  const [loggedIn, setLoggedIn] = useState(true);
-  console.log(setLoggedIn);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await axios.get(backendURL + "users");
+      const allUsers = await response.data;
+      console.log(allUsers);
+      setAllUsers(allUsers);
+    };
+    fetchUsers();
+  }, []);
+
   function handleUploadClick() {
     setView("form");
   }
@@ -84,21 +94,44 @@ export default function MainContent(): JSX.Element {
     setView("study-list");
   }
 
+  //hiya
   function handleSearchButtonClick() {
     setSearchList(
-      allResources.filter((object) => object.name.includes(searchTerm))
+      allResources.filter(
+        (object) =>
+          object.name.includes(searchTerm) ||
+          object.description.includes(searchTerm) ||
+          object.content_type.includes(searchTerm) ||
+          object.stage.includes(searchTerm) ||
+          object.tags.includes(searchTerm) ||
+          object.author_name.includes(searchTerm)
+      )
     );
+
     setIsSearchTermClicked(true);
   }
 
   const data = countArrayOfTags;
 
   console.log(currentTag);
+  function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setCurrentUser(e.target.value);
+  }
+
+  console.log(searchTerm);
   return (
     <>
       <Header />
       {view === "home" && (
         <>
+          <select onChange={handleUserChange}>
+            <option value="Select a user">-- Select a user --</option>
+            {allUsers.map((user) => (
+              <option key={user.userid} value={user.userid}>
+                {user.name}
+              </option>
+            ))}
+          </select>
           <div className="button-bar">
             <button>See Random</button>
             <button>Popular Content</button>
@@ -123,7 +156,7 @@ export default function MainContent(): JSX.Element {
               onClick={(tag: TagInterface) => setCurrentTag(tag.value)}
             />
           </div>
-          {loggedIn && (
+          {currentUser && (
             <div className="upload">
               <h1>Upload Resource</h1>
               <button onClick={handleUploadClick} className="upload--button">
@@ -136,9 +169,6 @@ export default function MainContent(): JSX.Element {
             <div className="search-list">
               <h1>Search List</h1>
               <SearchTermResources allResources={searchList} />
-              <button onClick={handleUploadClick} className="search--list">
-                +
-              </button>
             </div>
           )}
           <RecentResources allResources={allResources} />
@@ -153,7 +183,7 @@ export default function MainContent(): JSX.Element {
             <button onClick={handleHomeClick}>Home</button>
             <button onClick={handleStudyListClick}>My Study List</button>
           </div>
-          <ResourceForm />
+          <ResourceForm userid={parseInt(currentUser)} />
         </>
       )}
 
