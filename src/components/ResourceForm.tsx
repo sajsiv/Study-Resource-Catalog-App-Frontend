@@ -77,6 +77,19 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
     });
   }
 
+  function handleDiscordPost() {
+    const request = new XMLHttpRequest();
+    request.open(
+      "POST",
+      "https://discord.com/api/webhooks/976462945632530483/3B-qlnfOAkY_wnddfGsGzhUixpEw8aIl_9W0okggMNkArPonhiwcC97P_xl7FyuVZG98"
+    );
+    request.setRequestHeader("Content-type", "application/json");
+    const params = {
+      content: `Title: ${formData.resourceName}, resource link: ${formData.URL}, check out new resource: www.academy-study-resources.netlify.app`,
+    };
+    request.send(JSON.stringify(params));
+  }
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const response = await axios.post(backendURL + "resources", formData);
@@ -93,6 +106,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
       reasonForRecommendation: "",
       userid: props.userid,
     });
+    handleDiscordPost();
   };
 
   return (
