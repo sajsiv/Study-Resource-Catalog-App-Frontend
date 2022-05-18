@@ -25,7 +25,7 @@ export default function MainContent(): JSX.Element {
   const [isSearchTermClicked, setIsSearchTermClicked] =
     useState<boolean>(false);
   const [searchList, setSearchList] = useState<ResourceDataInterface[]>([]);
-  const [currentTag, setCurrentTag] = useState<string>("");
+  // const [currentTag, setCurrentTag] = useState<string>("");
   const [countArrayOfTags, setCountArrayOfTags] = useState<TagInterface[]>([]);
   const [allUsers, setAllUsers] = useState<AllUsersInterface[]>([]);
   const [currentUser, setCurrentUser] = useState("");

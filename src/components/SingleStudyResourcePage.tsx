@@ -36,12 +36,14 @@ interface commentDataInputInterface {
 export default function SingleStudyResourcePage(): JSX.Element {
   const [commentText, setCommentText] = useState("");
   const [trigger, setTrigger] = useState(true);
-  const [commentData, setCommentData] = useState<commentDataInputInterface[]>([{
-    commentid: 0,
-    userid: 0,
-    resourceid: 0,
-    comment_text: "allo"
-  }]);
+  const [commentData, setCommentData] = useState<commentDataInputInterface[]>([
+    {
+      commentid: 0,
+      userid: 0,
+      resourceid: 0,
+      comment_text: "allo",
+    },
+  ]);
   const { resource_id } = useParams();
   console.log(backendURL + "resources/" + resource_id);
 
@@ -85,7 +87,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
         backendURL + "resources/" + "comments/" + resource_id
       );
       const commentInfo: commentDataInputInterface[] = await response.data;
-      setCommentData(commentInfo)
+      setCommentData(commentInfo);
     };
     fetchCommentInfo();
   }, [trigger]);
@@ -122,10 +124,17 @@ export default function SingleStudyResourcePage(): JSX.Element {
           onChange={(e) => setCommentText(e.target.value)}
           value={commentText}
         ></textarea>
-        <button disabled={!commentText} onClick={() => {handlePostComment(commentText), setTrigger(!trigger)}}>
+        <button
+          disabled={!commentText}
+          onClick={() => {
+            handlePostComment(commentText), setTrigger(!trigger);
+          }}
+        >
           Post your comment
         </button>
-        {commentData.map((commentObject) => <p key={commentObject.commentid}>{commentObject.comment_text}</p>)}
+        {commentData.map((commentObject) => (
+          <p key={commentObject.commentid}>{commentObject.comment_text}</p>
+        ))}
       </section>
       <Footer />
     </>
