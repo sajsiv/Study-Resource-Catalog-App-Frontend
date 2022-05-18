@@ -94,7 +94,15 @@ export default function MainContent(): JSX.Element {
     setView("study-list");
   }
 
-  //hiya
+  function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setCurrentUser(e.target.value);
+  }
+
+
+  function handleLogOut() {
+    setCurrentUser("");
+  }
+
   function handleSearchButtonClick() {
     setSearchList(
       allResources.filter(
@@ -114,9 +122,7 @@ export default function MainContent(): JSX.Element {
   const data = countArrayOfTags;
 
   console.log(currentTag);
-  function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setCurrentUser(e.target.value);
-  }
+
 
   console.log(searchTerm);
   return (
@@ -124,14 +130,17 @@ export default function MainContent(): JSX.Element {
       <Header />
       {view === "home" && (
         <>
-          <select onChange={handleUserChange}>
-            <option value="Select a user">-- Select a user --</option>
+        <div className="login">
+          <select onChange={handleUserChange} value={currentUser}>
+            <option value="">-- Select a user --</option>
             {allUsers.map((user) => (
               <option key={user.userid} value={user.userid}>
                 {user.name}
               </option>
             ))}
           </select>
+          <button onClick={handleLogOut}>Log Out</button>
+          </div>
           <div className="button-bar">
             <button>See Random</button>
             <button>Popular Content</button>
