@@ -187,7 +187,7 @@ export default function MainContent(): JSX.Element {
 
           {isSearchTermClicked && (
             <div className="search-list">
-              <h1>Search List</h1>
+              <h1 className="heading">Search List</h1>
               <SearchTermResources allResources={searchList} />
             </div>
           )}
@@ -214,7 +214,7 @@ export default function MainContent(): JSX.Element {
             <button onClick={handleHomeClick}>Home</button>
             <button>Popular Content</button>
           </div>
-          <h1>My Study List</h1>
+          <h1 className="heading">My Study List</h1>
           <p>
             Add resources to your list and work through them at your own pace.
           </p>

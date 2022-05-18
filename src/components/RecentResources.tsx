@@ -6,10 +6,12 @@ export default function RecentResources(
 ): JSX.Element {
   return (
     <>
-      <h1>Recent Resources</h1>
-      <p>Find the latest study resources being shared by members!</p>
+      <h1 className="heading">Recent Resources</h1>
+      <p className="heading">Find the latest study resources being shared by members!</p>
+      <div className="resource-list">
       {props.allResources.map((resource) => (
         <SingleStudyResource
+          key={resource.resourceid}
           resourceName={resource.name}
           authorName={resource.author_name}
           resourceType={resource.content_type}
@@ -22,9 +24,9 @@ export default function RecentResources(
           reasonForRecommendation={resource.recommendation_reasoning}
           userId={resource.userid}
           resourceId={resource.resourceid}
-          key={resource.resourceid}
         />
       ))}
+      </div>
     </>
   );
 }
