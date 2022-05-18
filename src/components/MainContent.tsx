@@ -98,7 +98,6 @@ export default function MainContent(): JSX.Element {
     setCurrentUser(e.target.value);
   }
 
-
   function handleLogOut() {
     setCurrentUser("");
   }
@@ -123,23 +122,22 @@ export default function MainContent(): JSX.Element {
 
   console.log(currentTag);
 
-
   console.log(searchTerm);
   return (
     <>
       <Header />
       {view === "home" && (
         <>
-        <div className="login">
-          <select onChange={handleUserChange} value={currentUser}>
-            <option value="">-- Select a user --</option>
-            {allUsers.map((user) => (
-              <option key={user.userid} value={user.userid}>
-                {user.name}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleLogOut}>Log Out</button>
+          <div className="login">
+            <select onChange={handleUserChange} value={currentUser}>
+              <option value="">-- Select a user --</option>
+              {allUsers.map((user) => (
+                <option key={user.userid} value={user.userid}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
+            <button onClick={handleLogOut}>Log Out</button>
           </div>
           <div className="button-bar">
             <button>See Random</button>
