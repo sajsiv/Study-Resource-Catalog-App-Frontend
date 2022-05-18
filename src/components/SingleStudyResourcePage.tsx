@@ -4,6 +4,7 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import { backendURL } from "../utils/URLs";
+import {useNavigate} from "react-router-dom"
 
 interface ResourceDataInterface {
   name: string;
@@ -23,6 +24,8 @@ interface ResourceDataInterface {
 export default function SingleStudyResourcePage(): JSX.Element {
   const { resource_id } = useParams();
   console.log(backendURL + "resources/" + resource_id);
+
+  const navigate = useNavigate();
 
   const [currentResource, setCurrentResources] =
     useState<ResourceDataInterface>({
@@ -59,6 +62,8 @@ export default function SingleStudyResourcePage(): JSX.Element {
   return (
     <>
       <Header />
+      <button onClick={ () => navigate(-1)}>Home</button> 
+      <button>Add To Study List</button>
       <section className="single-resource-element">
         <h3>{currentResource.name}</h3>
         <h3>{currentResource.author_name}</h3>
