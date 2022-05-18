@@ -218,7 +218,7 @@ export default function MainContent(): JSX.Element {
           <p>
             Add resources to your list and work through them at your own pace.
           </p>
-          <MyStudyList userid={parseInt(currentUser)}/>
+          <MyStudyList userid={parseInt(currentUser)} />
         </section>
       )}
       <Footer />

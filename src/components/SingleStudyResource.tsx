@@ -25,7 +25,9 @@ export default function SingleStudyResource(
         <p>Author: {props.authorName}</p>
         <p>{props.recommendation}</p>
         <p>Tags: {props.tags}</p>
-        <p>Date Added: <em>{props.creationDate}</em></p>
+        <p>
+          Date Added: <em>{props.creationDate}</em>
+        </p>
       </section>
     </a>
   );
