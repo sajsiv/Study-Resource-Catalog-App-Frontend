@@ -1,4 +1,5 @@
-import { frontendURL } from "../utils/URLs";
+import axios from "axios";
+import { backendURL, frontendURL } from "../utils/URLs";
 
 interface SingleStudyResourceProps {
   resourceName: string;
@@ -14,11 +15,36 @@ interface SingleStudyResourceProps {
   userId: number;
   resourceId: number;
 }
+interface likeDataInterface {
+  likeValue: boolean;
+  resourceID: number;
+  userID: number;
+}
 
 export default function SingleStudyResource(
   props: SingleStudyResourceProps
 ): JSX.Element {
+  async function handleLike() {
+    const requestData: likeDataInterface = {
+      likeValue: true,
+      resourceID: props.resourceId,
+      userID: props.userId,
+    };
+    const response = await axios.post(backendURL + "likes", requestData);
+    console.log(response);
+  }
+  async function handleDislike() {
+    const requestData: likeDataInterface = {
+      likeValue: false,
+      resourceID: props.resourceId,
+      userID: props.userId,
+    };
+    const response = await axios.post(backendURL + "likes", requestData);
+    console.log(response);
+  }
+
   return (
+         <div>
     <a href={frontendURL + "resource/" + props.resourceId}>
       <section className="single-resource-element">
         <h3>Resource Name: {props.resourceName}</h3>
@@ -30,5 +56,11 @@ export default function SingleStudyResource(
         </p>
       </section>
     </a>
+    <div className="button-bar">
+      <button onClick={handleLike}>Like</button>
+      <button onClick={handleDislike}>Dislike</button>
+      </div>
+    </div>
+
   );
 }
