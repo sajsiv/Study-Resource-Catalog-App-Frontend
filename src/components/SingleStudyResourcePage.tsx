@@ -20,7 +20,28 @@ interface ResourceDataInterface {
   creation_date: string;
 }
 
+interface commentDataInterface {
+  commentText: string;
+  resourceID: number;
+  userID: number;
+}
+
+interface commentDataInputInterface {
+  commentid: number;
+  userid: number;
+  resourceid: number;
+  comment_text: string;
+}
+
 export default function SingleStudyResourcePage(): JSX.Element {
+  const [commentText, setCommentText] = useState("");
+  const [trigger, setTrigger] = useState(true);
+  const [commentData, setCommentData] = useState<commentDataInputInterface[]>([{
+    commentid: 0,
+    userid: 0,
+    resourceid: 0,
+    comment_text: "allo"
+  }]);
   const { resource_id } = useParams();
   console.log(backendURL + "resources/" + resource_id);
 
@@ -50,11 +71,35 @@ export default function SingleStudyResourcePage(): JSX.Element {
         console.log(currentResource);
         setCurrentResources(resourceInfo);
       };
+
       fetchResourceInfo();
     },
     // eslint-disable-next-line
     []
   );
+
+  useEffect(() => {
+    const fetchCommentInfo = async () => {
+      console.log(backendURL + "resources/" + "comments/" + resource_id);
+      const response = await axios.get(
+        backendURL + "resources/" + "comments/" + resource_id
+      );
+      const commentInfo: commentDataInputInterface[] = await response.data;
+      setCommentData(commentInfo)
+    };
+    fetchCommentInfo();
+  }, [trigger]);
+
+  async function handlePostComment(commentInput: string) {
+    const requestData: commentDataInterface = {
+      commentText: commentInput,
+      resourceID: currentResource.resourceid,
+      userID: currentResource.userid,
+    };
+    const response = await axios.post(backendURL + "comments", requestData);
+    console.log(response);
+    setCommentText("");
+  }
 
   return (
     <>
@@ -70,6 +115,17 @@ export default function SingleStudyResourcePage(): JSX.Element {
         <h3>{currentResource.stage}</h3>
         <h3>{currentResource.original_recommendation}</h3>
         <p>{currentResource.recommendation_reasoning}</p>
+      </section>
+      <section className="comments">
+        <h3>Comments</h3>
+        <textarea
+          onChange={(e) => setCommentText(e.target.value)}
+          value={commentText}
+        ></textarea>
+        <button disabled={!commentText} onClick={() => {handlePostComment(commentText), setTrigger(!trigger)}}>
+          Post your comment
+        </button>
+        {commentData.map((commentObject) => <p key={commentObject.commentid}>{commentObject.comment_text}</p>)}
       </section>
       <Footer />
     </>

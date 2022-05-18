@@ -11,8 +11,6 @@ import { backendURL } from "../utils/URLs";
 import { TagCloud } from "react-tagcloud";
 import axios from "axios";
 
-// import SingleStudyResource from "./SingleStudyResource";
-
 interface TagInterface {
   value: string;
   count: number;
@@ -31,6 +29,9 @@ export default function MainContent(): JSX.Element {
   const [countArrayOfTags, setCountArrayOfTags] = useState<TagInterface[]>([]);
   const [allUsers, setAllUsers] = useState<AllUsersInterface[]>([]);
   const [currentUser, setCurrentUser] = useState("");
+  const [displayedResources, setDisplayedResources] = useState<
+    ResourceDataInterface[]
+  >([]);
 
   useEffect(() => {
     let tempArray = [];
@@ -39,8 +40,8 @@ export default function MainContent(): JSX.Element {
     const fetchResources = async () => {
       const response = await axios.get(backendURL + "resources");
       const allResources: ResourceDataInterface[] = await response.data;
-      console.log(allResources);
       setAllResources(allResources);
+      setDisplayedResources(allResources);
 
       for (const resource of allResources) {
         tempArray = resource.tags.split(", ");
@@ -48,12 +49,10 @@ export default function MainContent(): JSX.Element {
           arrayOfTags.push(tag);
         }
       }
-      console.log("array of tags", arrayOfTags);
       tempCountArrayOfTags.push({ value: arrayOfTags[0], count: 0 });
       for (const tag of arrayOfTags) {
         let tagExists = false;
         for (const object of tempCountArrayOfTags) {
-          // console.log('iteration of tempCountArrayOFtags', tempCountArrayOfTags)
           if (object.value === tag) {
             object.count = object.count + 1;
             tagExists = true;
@@ -63,20 +62,16 @@ export default function MainContent(): JSX.Element {
           tempCountArrayOfTags.push({ value: tag, count: 1 });
         }
       }
-      console.log("this is final product", tempCountArrayOfTags);
       setCountArrayOfTags(tempCountArrayOfTags);
     };
 
     fetchResources();
-    console.log("this is split tags", arrayOfTags);
-    console.log("this is countArrayOfTags", countArrayOfTags);
   }, []);
 
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await axios.get(backendURL + "users");
       const allUsers = await response.data;
-      console.log(allUsers);
       setAllUsers(allUsers);
     };
     fetchUsers();
@@ -113,12 +108,21 @@ export default function MainContent(): JSX.Element {
 
   const data = countArrayOfTags;
 
-  console.log(currentTag);
   function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>) {
     setCurrentUser(e.target.value);
   }
 
-  console.log(searchTerm);
+  function handleTagClick(tagValue: string) {
+    searchList.length > 0
+      ? setSearchList(
+          searchList.filter((object) => object.tags.includes(tagValue))
+        )
+      : setDisplayedResources(
+          allResources.filter((object) => object.tags.includes(tagValue))
+        ),
+      console.log(displayedResources);
+  }
+
   return (
     <>
       <Header />
@@ -153,7 +157,7 @@ export default function MainContent(): JSX.Element {
               minSize={12}
               maxSize={35}
               tags={data}
-              onClick={(tag: TagInterface) => setCurrentTag(tag.value)}
+              onClick={(tag: TagInterface) => handleTagClick(tag.value)}
             />
           </div>
           {currentUser && (
@@ -171,7 +175,7 @@ export default function MainContent(): JSX.Element {
               <SearchTermResources allResources={searchList} />
             </div>
           )}
-          <RecentResources allResources={allResources} />
+          <RecentResources allResources={displayedResources} />
           <UserRecommendations />
         </>
       )}
