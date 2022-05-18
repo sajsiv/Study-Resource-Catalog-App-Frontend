@@ -59,11 +59,17 @@ export default function SingleStudyResourcePage(): JSX.Element {
     []
   );
 
+  function handleAddToStudyList(){
+    //post request to users study list in database
+    console.log("added resource")
+  }
+
+
   return (
     <>
       <Header />
       <button onClick={ () => navigate(-1)}>Home</button> 
-      <button>Add To Study List</button>
+      <button onClick={handleAddToStudyList}>Add To Study List</button>
       <section className="single-resource-element">
         <h3>{currentResource.name}</h3>
         <h3>{currentResource.author_name}</h3>
