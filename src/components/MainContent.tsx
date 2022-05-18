@@ -79,6 +79,16 @@ export default function MainContent(): JSX.Element {
     setCurrentUser(e.target.value);
   }
 
+  function handleSearchTerm(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+    setSearchTerm(value);
+  }
+
+  function handleResetSearchTerm() {
+    setSearchTerm("");
+    setIsSearchTermClicked(false);
+    setSearchList([]);
+  }
   console.log(searchTerm);
   return (
     <>
@@ -100,14 +110,17 @@ export default function MainContent(): JSX.Element {
           </div>
           <div className="search">
             <input
-              onChange={(event) => setSearchTerm(event.target.value)}
+              onChange={handleSearchTerm}
               type="text"
               placeholder="Search a resource"
+              value={searchTerm}
+              name="searchTerm"
             ></input>
             <br />
             <button disabled={!searchTerm} onClick={handleSearchButtonClick}>
               Search
             </button>
+            <button onClick={handleResetSearchTerm}>Reset Search</button>
           </div>
           <div className="tags">
             <TagCloud />
