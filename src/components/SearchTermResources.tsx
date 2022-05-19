@@ -1,9 +1,11 @@
 import SingleStudyResource from "./SingleStudyResource";
-import { RecentResourcesInterface } from "./interfaces";
 
-export default function searchTermResources(
-  props: RecentResourcesInterface
-): JSX.Element {
+import { ResourceDataInterface } from "./interfaces";
+
+export default function searchTermResources(props: {
+  allResources: ResourceDataInterface[];
+  loggedInUserId: number;
+}): JSX.Element {
   return (
     <>
       <div className="resource-list">
@@ -22,6 +24,7 @@ export default function searchTermResources(
             userId={resource.userid}
             resourceId={resource.resourceid}
             key={resource.resourceid}
+            loggedInUserId={props.loggedInUserId}
           />
         ))}
       </div>

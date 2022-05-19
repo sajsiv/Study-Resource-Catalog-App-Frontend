@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SingleStudyResource from "./SingleStudyResource";
+import axios from "axios";
+import { backendURL } from "../utils/URLs";
 
 interface MyStudyListProps {
   userid: number;
@@ -25,10 +27,21 @@ export default function MyStudyList(props: MyStudyListProps): JSX.Element {
     []
   );
 
+  useEffect(() => {
+    const fetchStudyList = async () => {
+      const response = await axios.get(backendURL + "studylist");
+      const studyListData = await response.data;
+      setStudyListArray(studyListData);
+    };
+    fetchStudyList();
+  }, []);
+
   const userid = props.userid;
   //do get request and populate studyListArray with response
   console.log(setStudyListArray);
   console.log(userid);
+
+  console.log("study list", studyListArray);
 
   const studyList = studyListArray.map((resource) => (
     <SingleStudyResource
@@ -45,6 +58,7 @@ export default function MyStudyList(props: MyStudyListProps): JSX.Element {
       userId={resource.userid}
       resourceId={resource.resourceid}
       key={resource.resourceid}
+      loggedInUserId={userid}
     />
   ));
 

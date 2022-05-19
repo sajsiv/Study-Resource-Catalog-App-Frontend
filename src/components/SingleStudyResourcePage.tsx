@@ -45,7 +45,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
       comment_text: "allo",
     },
   ]);
-  const { resource_id } = useParams();
+  const { resource_id, user_id } = useParams();
   console.log(backendURL + "resources/" + resource_id);
 
   const navigate = useNavigate();
@@ -107,15 +107,21 @@ export default function SingleStudyResourcePage(): JSX.Element {
   }
 
   function handleAddToStudyList() {
-    //post request to users study list in database
-    console.log("added resource");
+    async function postResource() {
+      const requestData = {
+        userid: user_id,
+        resourceid: currentResource.resourceid,
+      };
+      const response = await axios.post(backendURL + "studylist", requestData);
+      console.log(response);
+    }
+    postResource();
   }
 
   return (
     <>
       <Header />
       <button onClick={() => navigate(-1)}>Home</button>
-      <button onClick={handleAddToStudyList}>Add To Study List</button>
       <section className="single-resource-element">
         <h3>{currentResource.name}</h3>
         <h3>{currentResource.author_name}</h3>
@@ -127,6 +133,11 @@ export default function SingleStudyResourcePage(): JSX.Element {
         <h3>{currentResource.stage}</h3>
         <h3>{currentResource.original_recommendation}</h3>
         <p>{currentResource.recommendation_reasoning}</p>
+        {user_id !== "0" && (
+          <button className="like-button" onClick={handleAddToStudyList}>
+            Add to Study List
+          </button>
+        )}
       </section>
       <section className="comments">
         <h3>Comments</h3>

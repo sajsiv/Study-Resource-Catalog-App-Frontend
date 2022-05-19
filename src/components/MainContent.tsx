@@ -29,7 +29,7 @@ export default function MainContent(): JSX.Element {
   // const [currentTag, setCurrentTag] = useState<string>("");
   const [countArrayOfTags, setCountArrayOfTags] = useState<TagInterface[]>([]);
   const [allUsers, setAllUsers] = useState<AllUsersInterface[]>([]);
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUser, setCurrentUser] = useState<string>("0");
   const [displayedResources, setDisplayedResources] = useState<
     ResourceDataInterface[]
   >([]);
@@ -95,7 +95,7 @@ export default function MainContent(): JSX.Element {
   }
 
   function handleLogOut() {
-    setCurrentUser("");
+    setCurrentUser("0");
   }
 
   function handleSearchButtonClick() {
@@ -193,11 +193,20 @@ export default function MainContent(): JSX.Element {
           {isSearchTermClicked && (
             <div className="search-list">
               <h1 className="heading">Search List</h1>
-              <SearchTermResources allResources={searchList} />
+              <SearchTermResources
+                allResources={searchList}
+                loggedInUserId={parseInt(currentUser)}
+              />
             </div>
           )}
-          <TagResourceList allResources={displayedResources} />
-          <RecentResources allResources={allResources} />
+          <TagResourceList
+            allResources={displayedResources}
+            loggedInUserId={parseInt(currentUser)}
+          />
+          <RecentResources
+            allResources={allResources}
+            loggedInUserId={parseInt(currentUser)}
+          />
           <UserRecommendations />
         </>
       )}

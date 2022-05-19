@@ -14,6 +14,7 @@ interface SingleStudyResourceProps {
   creationDate: string;
   userId: number;
   resourceId: number;
+  loggedInUserId: number;
 }
 interface likeDataInterface {
   likeValue: boolean;
@@ -45,7 +46,15 @@ export default function SingleStudyResource(
 
   return (
     <div>
-      <a href={frontendURL + "resource/" + props.resourceId}>
+      <a
+        href={
+          frontendURL +
+          "resource/" +
+          props.resourceId +
+          "/" +
+          props.loggedInUserId
+        }
+      >
         <section className="single-resource-element">
           <h3>
             <strong>Resource Name:</strong> {props.resourceName}
