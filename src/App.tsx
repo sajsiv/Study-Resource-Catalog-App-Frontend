@@ -10,7 +10,7 @@ function App(): JSX.Element {
         <Routes>
           <Route path="/" element={<MainContent />} />
           <Route
-            path="/resource/:resource_id"
+            path="/resource/:resource_id/:user_id"
             element={<SingleStudyResourcePage />}
           />
         </Routes>

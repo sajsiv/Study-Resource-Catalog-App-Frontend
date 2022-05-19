@@ -1,9 +1,10 @@
 import SingleStudyResource from "./SingleStudyResource";
-import { RecentResourcesInterface } from "./interfaces";
+import { ResourceDataInterface } from "./interfaces";
 
-export default function RecentResources(
-  props: RecentResourcesInterface
-): JSX.Element {
+export default function RecentResources(props: {
+  allResources: ResourceDataInterface[];
+  loggedInUserId: number;
+}): JSX.Element {
   return (
     <>
       <h1 className="heading">Recent Resources</h1>
@@ -26,6 +27,7 @@ export default function RecentResources(
             reasonForRecommendation={resource.recommendation_reasoning}
             userId={resource.userid}
             resourceId={resource.resourceid}
+            loggedInUserId={props.loggedInUserId}
           />
         ))}
       </div>
