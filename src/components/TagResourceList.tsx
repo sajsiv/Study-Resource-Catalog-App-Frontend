@@ -7,8 +7,6 @@ export default function RecentResources(props: {
 }): JSX.Element {
   return (
     <>
-      <h1 className="heading">Tag Results</h1>
-
       <div className="resource-list">
         {props.allResources.slice(0, 5).map((resource) => (
           <SingleStudyResource

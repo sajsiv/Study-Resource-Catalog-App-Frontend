@@ -89,7 +89,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
         backendURL + "resources/" + "comments/" + resource_id
       );
       const commentInfo: commentDataInputInterface[] = await response.data;
-      const data = setCommentData(commentInfo)
+      const data = setCommentData(commentInfo);
       return await data;
     };
     fetchCommentInfo();
@@ -121,7 +121,9 @@ export default function SingleStudyResourcePage(): JSX.Element {
   return (
     <>
       <Header />
-      <button onClick={() => navigate(-1)}>Home</button>
+      <button className="home--button" onClick={() => navigate(-1)}>
+        Home
+      </button>
       <section className="single-resource-element">
         <h3>{currentResource.name}</h3>
         <h3>{currentResource.author_name}</h3>
@@ -139,9 +141,11 @@ export default function SingleStudyResourcePage(): JSX.Element {
           </button>
         )}
       </section>
+      <h1 className="heading-center">Comments</h1>
       <section className="comments">
-        <h3>Comments</h3>
+        <h3>Leave a comment:</h3>
         <textarea
+          className="comment--textarea"
           onChange={(e) => setCommentText(e.target.value)}
           value={commentText}
         ></textarea>
@@ -154,7 +158,9 @@ export default function SingleStudyResourcePage(): JSX.Element {
           Post your comment
         </button>
         {commentData.map((commentObject) => (
-          <p key={commentObject.commentid}>{commentObject.comment_text}</p>
+          <p className="comment--info" key={commentObject.commentid}>
+            {commentObject.comment_text}
+          </p>
         ))}
       </section>
       <Footer />

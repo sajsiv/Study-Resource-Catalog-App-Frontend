@@ -111,11 +111,12 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
 
   return (
     <>
-      <h1>Resource Form</h1>
+      <h1 className="heading">Resource Form</h1>
       <div className="resource-form">
         <form onSubmit={handleSubmit}>
           <label htmlFor="resource-form-resourceName">Resource Name:</label>
           <input
+            className="form--input"
             onChange={(event) => handleFormChange(event)}
             type="text"
             placeholder="type resource name here"
@@ -125,6 +126,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
           />
           <label htmlFor="resource-form-authorName">Author Name:</label>
           <input
+            className="form--input"
             onChange={(event) => handleFormChange(event)}
             type="text"
             placeholder="type Author name here"
@@ -134,6 +136,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
           />
           <label htmlFor="resource-form-URL">URL:</label>
           <input
+            className="form--input"
             onChange={(event) => handleFormChange(event)}
             type="text"
             placeholder="type URL name here"
@@ -152,6 +155,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
           />
           <label htmlFor="resource-form-tags">Tags:</label>
           <input
+            className="form--input"
             onChange={(event) => handleFormChange(event)}
             type="text"
             placeholder="type tags here (example: react, typescript, online course)"
@@ -161,6 +165,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
           />
           <label htmlFor="resource-form-resourceType">Resource Type:</label>
           <select
+            className="form--select"
             onChange={(event) => handleFormChange(event)}
             value={formData.resourceType}
             name="resourceType"
@@ -175,6 +180,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
 
           <label htmlFor="resource-form-weeks">Build Phase Week:</label>
           <select
+            className="form--select"
             onChange={(event) => handleFormChange(event)}
             value={formData.buildPhaseWeek}
             name="buildPhaseWeek"
@@ -189,6 +195,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
 
           <label htmlFor="resource-form-recommendation">Recommendation:</label>
           <select
+            className="form--select"
             onChange={(event) => handleFormChange(event)}
             value={formData.recommendation}
             name="recommendation"
@@ -205,8 +212,8 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
             Reason for recommendation:
           </label>
           <textarea
+            className="resource-form--description"
             onChange={(event) => handleFormChange(event)}
-            className="resource-form--reason-recommendation"
             placeholder="type reason here"
             name="reasonForRecommendation"
             value={formData.reasonForRecommendation}
