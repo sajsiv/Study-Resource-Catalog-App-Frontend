@@ -36,7 +36,7 @@ interface commentDataInputInterface {
 
 export default function SingleStudyResourcePage(): JSX.Element {
   const [commentText, setCommentText] = useState("");
-  const [trigger, setTrigger] = useState(true);
+  const [trigger, setTrigger] = useState(1);
   const [commentData, setCommentData] = useState<commentDataInputInterface[]>([
     {
       commentid: 0,
@@ -92,7 +92,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
       setCommentData(commentInfo);
     };
     fetchCommentInfo();
-    console.log("IM TRIGGERED")
+    console.log(trigger, "th time triggered")
   }, [trigger]);
 
   async function handlePostComment(commentInput: string) {
@@ -137,7 +137,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
         <button
           disabled={!commentText}
           onClick={() => {
-            handlePostComment(commentText), setTrigger(!trigger);
+            handlePostComment(commentText), setTrigger(trigger + 1);
           }}
         >
           Post your comment
