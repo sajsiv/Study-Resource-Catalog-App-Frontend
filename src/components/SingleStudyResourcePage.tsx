@@ -92,6 +92,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
       setCommentData(commentInfo);
     };
     fetchCommentInfo();
+    console.log("IM TRIGGERED")
   }, [trigger]);
 
   async function handlePostComment(commentInput: string) {
