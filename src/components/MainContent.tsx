@@ -10,6 +10,7 @@ import { ResourceDataInterface, AllUsersInterface } from "./interfaces";
 import { backendURL } from "../utils/URLs";
 import { TagCloud } from "react-tagcloud";
 import axios from "axios";
+import TagResourceList from "./TagResourceList";
 
 interface TagInterface {
   value: string;
@@ -195,7 +196,8 @@ export default function MainContent(): JSX.Element {
               <SearchTermResources allResources={searchList} />
             </div>
           )}
-          <RecentResources allResources={displayedResources} />
+          <TagResourceList allResources={displayedResources} />
+          <RecentResources allResources={allResources} />
           <UserRecommendations />
         </>
       )}
