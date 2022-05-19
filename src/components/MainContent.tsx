@@ -28,6 +28,7 @@ export default function MainContent(): JSX.Element {
   const [searchList, setSearchList] = useState<ResourceDataInterface[]>([]);
   // const [currentTag, setCurrentTag] = useState<string>("");
   const [countArrayOfTags, setCountArrayOfTags] = useState<TagInterface[]>([]);
+  const [isTagSelected, setIsTagSelected] = useState<boolean>(false);
   const [allUsers, setAllUsers] = useState<AllUsersInterface[]>([]);
   const [currentUser, setCurrentUser] = useState<string>("0");
   const [displayedResources, setDisplayedResources] = useState<
@@ -124,7 +125,8 @@ export default function MainContent(): JSX.Element {
       : setDisplayedResources(
           allResources.filter((object) => object.tags.includes(tagValue))
         ),
-      console.log(displayedResources);
+      setIsTagSelected(true);
+    console.log(displayedResources);
   }
 
   function handleSearchTerm(event: React.ChangeEvent<HTMLInputElement>) {
@@ -144,7 +146,11 @@ export default function MainContent(): JSX.Element {
       {view === "home" && (
         <>
           <div className="login">
-            <select onChange={handleUserChange} value={currentUser}>
+            <select
+              className="user--select"
+              onChange={handleUserChange}
+              value={currentUser}
+            >
               <option value="">-- Select a user --</option>
               {allUsers.map((user) => (
                 <option key={user.userid} value={user.userid}>
@@ -159,20 +165,6 @@ export default function MainContent(): JSX.Element {
             <button>Popular Content</button>
             <button onClick={handleStudyListClick}>My Study List</button>
           </div>
-          <div className="search">
-            <input
-              onChange={handleSearchTerm}
-              type="text"
-              placeholder="Search a resource"
-              value={searchTerm}
-              name="searchTerm"
-            ></input>
-            <br />
-            <button disabled={!searchTerm} onClick={handleSearchButtonClick}>
-              Search
-            </button>
-            <button onClick={handleResetSearchTerm}>Reset Search</button>
-          </div>
           <div className="tags">
             <TagCloud
               minSize={12}
@@ -181,11 +173,28 @@ export default function MainContent(): JSX.Element {
               onClick={(tag: TagInterface) => handleTagClick(tag.value)}
             />
           </div>
-          {currentUser && (
+          <div className="search">
+            <input
+              className="search--input"
+              onChange={handleSearchTerm}
+              type="text"
+              placeholder="Search a resource"
+              value={searchTerm}
+              name="searchTerm"
+            ></input>
+            <br />
+            {searchTerm && (
+              <button onClick={handleSearchButtonClick}>Search</button>
+            )}
+            {isSearchTermClicked && (
+              <button onClick={handleResetSearchTerm}>Reset Search</button>
+            )}
+          </div>
+
+          {currentUser !== (0 || "0") && (
             <div className="upload">
-              <h1>Upload Resource</h1>
               <button onClick={handleUploadClick} className="upload--button">
-                +
+                Add Resource
               </button>
             </div>
           )}
@@ -199,10 +208,22 @@ export default function MainContent(): JSX.Element {
               />
             </div>
           )}
-          <TagResourceList
-            allResources={displayedResources}
-            loggedInUserId={parseInt(currentUser)}
-          />
+          {isTagSelected && (
+            <div>
+              <h1 className="heading">Tag Results</h1>
+              <button
+                className="closeTag--button"
+                onClick={() => setIsTagSelected(false)}
+              >
+                Close Tag Search
+              </button>
+
+              <TagResourceList
+                allResources={displayedResources}
+                loggedInUserId={parseInt(currentUser)}
+              />
+            </div>
+          )}
           <RecentResources
             allResources={allResources}
             loggedInUserId={parseInt(currentUser)}
