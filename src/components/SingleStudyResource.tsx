@@ -47,18 +47,28 @@ export default function SingleStudyResource(
     <div>
       <a href={frontendURL + "resource/" + props.resourceId}>
         <section className="single-resource-element">
-          <h3>Resource Name: {props.resourceName}</h3>
-          <p>Author: {props.authorName}</p>
-          <p>{props.recommendation}</p>
-          <p>Tags: {props.tags}</p>
+          <h3>
+            <strong>Resource Name:</strong> {props.resourceName}
+          </h3>
           <p>
-            Date Added: <em>{props.creationDate}</em>
+            <strong>Author:</strong> {props.authorName}
+          </p>
+          <p>{props.recommendation}</p>
+          <p>
+            <strong>Tags:</strong> {props.tags}
+          </p>
+          <p>
+            <strong> Date Added:</strong> <em>{props.creationDate}</em>
           </p>
         </section>
       </a>
       <div className="button-bar">
-        <button onClick={handleLike}>Like</button>
-        <button onClick={handleDislike}>Dislike</button>
+        <button className="like-button" onClick={handleLike}>
+          👍
+        </button>
+        <button className="like-button" onClick={handleDislike}>
+          👎
+        </button>
       </div>
     </div>
   );

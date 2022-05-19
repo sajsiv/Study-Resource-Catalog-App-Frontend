@@ -85,6 +85,23 @@ a {
   justify-content: center;
 }
 
+.like-button {
+  font-family: "Karla", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  background: linear-gradient(90.41deg, #3299d4 1.14%, #18bdda 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-right: 10px;
+}
+
+.like-button:hover {
+  background: linear-gradient(90.41deg, #711f8d 1.14%, #b04cd1 100%);
+}
+
 .search {
   display: flex;
   flex-direction: row;
@@ -102,6 +119,11 @@ a {
 
 .heading {
   margin-left: 40px;
+}
+
+.sub-heading {
+  margin-left: 40px;
+  margin-bottom: 40px;
 }
 
 .upload {
