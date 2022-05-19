@@ -50,7 +50,8 @@ export default function MyStudyList(props: MyStudyListProps): JSX.Element {
 
   return (
     <>
-      <h1>list of study resources</h1>
+      <h1 className="heading">My Study Resources</h1>
+      <p className="sub-heading">My Study Resources</p>
       {studyList}
     </>
   );

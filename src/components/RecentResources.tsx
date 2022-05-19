@@ -7,7 +7,7 @@ export default function RecentResources(
   return (
     <>
       <h1 className="heading">Recent Resources</h1>
-      <p className="heading">
+      <p className="sub-heading">
         Find the latest study resources being shared by members!
       </p>
       <div className="resource-list">

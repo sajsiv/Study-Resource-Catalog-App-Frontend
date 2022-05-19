@@ -219,7 +219,7 @@ export default function MainContent(): JSX.Element {
             <button>Popular Content</button>
           </div>
           <h1 className="heading">My Study List</h1>
-          <p>
+          <p className="sub-heading">
             Add resources to your list and work through them at your own pace.
           </p>
           <MyStudyList userid={parseInt(currentUser)} />
