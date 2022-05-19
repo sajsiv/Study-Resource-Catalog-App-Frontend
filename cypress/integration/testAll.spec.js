@@ -19,5 +19,5 @@ describe('home page displays resources', () => {
         cy.get('button').eq(1).click()
         cy.get('.heading').contains("Recent Resources")
       })
-    
+   
 })

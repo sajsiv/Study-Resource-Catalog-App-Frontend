@@ -89,7 +89,8 @@ export default function SingleStudyResourcePage(): JSX.Element {
         backendURL + "resources/" + "comments/" + resource_id
       );
       const commentInfo: commentDataInputInterface[] = await response.data;
-      setCommentData(commentInfo);
+      const data = setCommentData(commentInfo)
+      return await data;
     };
     fetchCommentInfo();
   }, [trigger]);
