@@ -163,7 +163,7 @@ export default function MainContent(): JSX.Element {
           <div className="button-bar">
             <button>See Random</button>
             <button>Popular Content</button>
-            <button onClick={handleStudyListClick}>My Study List</button>
+            { currentUser !== (0 || "0") && <button onClick={handleStudyListClick}>My Study List</button>}
           </div>
           <div className="tags">
             <TagCloud
