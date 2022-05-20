@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import SingleStudyResource from "./SingleStudyResource";
+import SingleStudyListElement from "./SingleStudyListElement";
 import axios from "axios";
 import { backendURL } from "../utils/URLs";
 
@@ -43,8 +43,14 @@ export default function MyStudyList(props: MyStudyListProps): JSX.Element {
 
   console.log("study list", studyListArray);
 
+  async function handleDelete(resourceId: number) {
+    const response = await axios.delete(backendURL + "studylist/" + currentUserid + "/" + resourceId)
+    console.log(response);
+  }
+
   const studyList = studyListArray.map((resource) => (
-    <SingleStudyResource
+    <>
+    <SingleStudyListElement
       resourceName={resource.name}
       authorName={resource.author_name}
       resourceType={resource.content_type}
@@ -60,6 +66,8 @@ export default function MyStudyList(props: MyStudyListProps): JSX.Element {
       key={resource.resourceid}
       loggedInUserId={currentUserid}
     />
+    <button className="like-button" onClick={ () => handleDelete(resource.resourceid)}>Remove from Study List</button>
+    </>
   ));
 
   return <>{studyList}</>;
