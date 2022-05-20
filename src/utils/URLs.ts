@@ -6,4 +6,4 @@ export const backendURL =
 export const frontendURL: string =
   process.env.NODE_ENV === "production"
     ? "https://academy-study-resources.netlify.app/"
-    : "http://localhost:40597/";
+    : "http://localhost:38695/";

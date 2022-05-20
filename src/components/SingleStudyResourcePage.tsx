@@ -110,7 +110,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
   function handleAddToStudyList() {
     async function postResource() {
       const requestData = {
-        userid: definedLoggedInUserID,
+        userid: user_id,
         resourceid: currentResource.resourceid,
       };
       const response = await axios.post(backendURL + "studylist", requestData);

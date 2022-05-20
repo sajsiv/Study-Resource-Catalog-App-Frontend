@@ -44,29 +44,36 @@ export default function MyStudyList(props: MyStudyListProps): JSX.Element {
   console.log("study list", studyListArray);
 
   async function handleDelete(resourceId: number) {
-    const response = await axios.delete(backendURL + "studylist/" + currentUserid + "/" + resourceId)
+    const response = await axios.delete(
+      backendURL + "studylist/" + currentUserid + "/" + resourceId
+    );
     console.log(response);
   }
 
   const studyList = studyListArray.map((resource) => (
     <>
-    <SingleStudyListElement
-      resourceName={resource.name}
-      authorName={resource.author_name}
-      resourceType={resource.content_type}
-      creationDate={resource.creation_date}
-      URL={resource.url}
-      description={resource.description}
-      tags={resource.tags}
-      buildPhaseWeek={resource.stage}
-      recommendation={resource.original_recommendation}
-      reasonForRecommendation={resource.recommendation_reasoning}
-      userId={resource.userid}
-      resourceId={resource.resourceid}
-      key={resource.resourceid}
-      loggedInUserId={currentUserid}
-    />
-    <button className="like-button" onClick={ () => handleDelete(resource.resourceid)}>Remove from Study List</button>
+      <SingleStudyListElement
+        resourceName={resource.name}
+        authorName={resource.author_name}
+        resourceType={resource.content_type}
+        creationDate={resource.creation_date}
+        URL={resource.url}
+        description={resource.description}
+        tags={resource.tags}
+        buildPhaseWeek={resource.stage}
+        recommendation={resource.original_recommendation}
+        reasonForRecommendation={resource.recommendation_reasoning}
+        userId={resource.userid}
+        resourceId={resource.resourceid}
+        key={resource.resourceid}
+        loggedInUserId={currentUserid}
+      />
+      <button
+        className="like-button"
+        onClick={() => handleDelete(resource.resourceid)}
+      >
+        Remove from Study List
+      </button>
     </>
   ));
 
