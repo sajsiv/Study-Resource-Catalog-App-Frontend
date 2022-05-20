@@ -1,0 +1,84 @@
+[33m87a669d[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mstudylistbugs[m[33m)[m Merge pull request #29 from sajsiv/cookies-add
+[33m6007fda[m Merge pull request #30 from sajsiv/studylist
+[33m27f5f93[m[33m ([m[1;31morigin/studylist[m[33m, [m[1;32mstudylist[m[33m)[m added delete functionality
+[33m7c629bd[m[33m ([m[1;31morigin/cookies-add[m[33m)[m passing userId down to likes, userID stored locally via cookies
+[33mb1bed00[m passing userId down to likes, userID stored locally via cookies
+[33m08cb541[m Merge pull request #28 from sajsiv/studylist
+[33m6cddf63[m altered studylist useeffect to get specific userid matching data
+[33m387e704[m Merge pull request #27 from sajsiv/css-form-update
+[33mad2567b[m[33m ([m[1;31morigin/css-form-update[m[33m, [m[1;32mcss-form-update[m[33m)[m added css changes to form and buttons
+[33m40aa30a[m Merge pull request #26 from sajsiv/study-list
+[33m329c072[m[33m ([m[1;31morigin/study-list[m[33m)[m added study list
+[33mf4c9c9f[m Merge pull request #25 from sajsiv/testing-trigger-netlify
+[33m38ef821[m[33m ([m[1;31morigin/testing-trigger-netlify[m[33m)[m final trigger fix, keeping boolean
+[33m4d0f847[m making trigger more clear
+[33m875c9ab[m investigating why a useEffect seems to be triggered locally but not on Netlify
+[33mb8bb078[m Merge pull request #24 from sajsiv/tidy-up
+[33m7f3e5e1[m[33m ([m[1;31morigin/tidy-up[m[33m, [m[1;32mtidy-up[m[33m)[m fixed tag list
+[33m59e91d3[m Merge pull request #23 from sajsiv/cypress-tests-added
+[33m79ea54b[m[33m ([m[1;31morigin/cypress-tests-added[m[33m)[m adding cypress tests
+[33ma4e659f[m Merge pull request #22 from sajsiv/tidy-up
+[33m96b1fc9[m changed like buttons and formatted headings
+[33mda9c3e8[m Merge pull request #21 from sajsiv/fix-bug
+[33m5423c13[m[33m ([m[1;31morigin/fix-bug[m[33m, [m[1;32mfix-bug[m[33m)[m fixed urls
+[33mc3c84fe[m Merge pull request #20 from sajsiv/css-changes
+[33m36a073b[m Merge branch 'main' into css-changes
+[33m7944cb5[m Merge pull request #19 from sajsiv/adding-comments-likes-saj
+[33m9490de0[m[33m ([m[1;31morigin/css-changes[m[33m, [m[1;32mcss-changes[m[33m)[m aesthetic changes
+[33m9e2ce90[m made small changes for general usability and aesthetic
+[33m0ddee64[m[33m ([m[1;31morigin/adding-comments-likes-saj[m[33m)[m Merge branch 'main' into adding-comments-likes-saj
+[33m34203da[m adding comments and likes
+[33mb0931e0[m adding comments and likes
+[33m5bc3d3a[m[33m ([m[1;32mcss[m[33m)[m Merge pull request #18 from sajsiv/study
+[33md835bab[m[33m ([m[1;31morigin/study[m[33m, [m[1;32mstudy[m[33m)[m added structure for studylist page
+[33ma9e3cc4[m Merge pull request #17 from sajsiv/study-list
+[33m02d73d8[m[33m ([m[1;32mstudy-list[m[33m)[m added functional home button to resource pages
+[33mf5f31ba[m Merge branch 'main' of github.com:sajsiv/Study-Resource-Catalog-App-Frontend
+[33m8b7082c[m added reset search button to search bar functionality
+[33med2a057[m Merge pull request #16 from sajsiv/discord
+[33ma2a462d[m[33m ([m[1;31morigin/discord[m[33m, [m[1;32mdiscord[m[33m)[m added discord link but now think it should actually be posted from back end, we should move and add the speicific resource link where I have included general website homepage
+[33m0e2d4c5[m Merge pull request #15 from sajsiv/discord
+[33m9f00a8c[m added logout button
+[33mc326673[m Merge pull request #14 from sajsiv/fixing-tags-2
+[33ma4715d7[m[33m ([m[1;31morigin/fixing-tags-2[m[33m)[m Merge branch 'main' into fixing-tags-2
+[33m0bfdfd0[m removed the count
+[33mda35688[m got a functioning tag bar
+[33md68cb91[m Merge pull request #13 from sajsiv/searchTermUpdate
+[33m13514d1[m[33m ([m[1;31morigin/searchTermUpdate[m[33m, [m[1;32msearchTermUpdate[m[33m)[m hiya
+[33m7539860[m[33m ([m[1;31morigin/laura[m[33m, [m[1;32mlaura[m[33m)[m added userid as prop to resource form and increased flexibility of search term filtering to include description ect
+[33me25b031[m added userid as prop to resource form and increased flexibility of search term filtering to include description ect
+[33mf455ebf[m Merge pull request #11 from sajsiv/login
+[33ma27fd56[m[33m ([m[1;31morigin/login[m[33m, [m[1;32mlogin[m[33m)[m added login dropdown
+[33md8def68[m Merge pull request #10 from sajsiv/beefy-structure
+[33m07dd036[m[33m ([m[1;31morigin/beefy-structure[m[33m)[m allowing netlify redirects
+[33me990e9d[m allowing netlify redirects
+[33m0398752[m Merge pull request #9 from sajsiv/beefy-structure
+[33mc0e7843[m adding search functionality, backend and frontend url variables, tagcloud
+[33m22b96a9[m Merge pull request #8 from sajsiv/search-bar-functionality
+[33me389332[m[33m ([m[1;31morigin/search-bar-functionality[m[33m)[m Merge branch 'main' into search-bar-functionality
+[33m0452b6a[m added searchTerm functionality and searched item list
+[33mc3640c3[m added search list component
+[33mc0b96e4[m Merge pull request #6 from sajsiv/routes
+[33m6220add[m[33m ([m[1;31morigin/routes[m[33m, [m[1;32mroutes[m[33m)[m added resource page routes
+[33m656f5f8[m Merge pull request #5 from sajsiv/resourcelistfunctionality
+[33me2c2673[m[33m ([m[1;31morigin/resourcelistfunctionality[m[33m)[m added splitTags helper function
+[33ma5497ae[m Merge pull request #4 from sajsiv/resourcelistfunctionality
+[33m2d795f2[m added  'view recent resources' functionality
+[33m5dbbb84[m added  'view recent resources' functionality
+[33m85262fb[m added view recent resources functionality
+[33m819af20[m Merge pull request #3 from sajsiv/basic-structure
+[33m5d9ebec[m[33m ([m[1;31morigin/basic-structure[m[33m)[m formatting
+[33m6f6c36d[m[33m ([m[1;32mbasic-structure[m[33m)[m formatted
+[33m42b20b3[m created basic app structure
+[33m592c035[m Merge pull request #2 from sajsiv/resource-form
+[33mf2d2538[m[33m ([m[1;31morigin/resource-form[m[33m)[m formatted
+[33m34d5dd1[m added  post form to backend functionality
+[33m2337772[m working on submit button for resource form
+[33m0219611[m Merge pull request #1 from sajsiv/resource-form
+[33mf3fe87b[m formatted
+[33mcb838df[m completed the resource form and going to fix submit
+[33m6f00bea[m started creation of add resource form
+[33m477663b[m started creation of resource form
+[33m4bbc03a[m started creation of the  add resource form
+[33m4a573b7[m first commit
+[33mc8c254c[m Initial commit
