@@ -71,6 +71,14 @@ export default function MainContent(): JSX.Element {
   }, []);
 
   useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setCurrentUser(foundUser);
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchUsers = async () => {
       const response = await axios.get(backendURL + "users");
       const allUsers = await response.data;
@@ -93,6 +101,7 @@ export default function MainContent(): JSX.Element {
 
   function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>) {
     setCurrentUser(e.target.value);
+    localStorage.setItem("user", e.target.value);
   }
 
   function handleLogOut() {
@@ -139,7 +148,15 @@ export default function MainContent(): JSX.Element {
     setIsSearchTermClicked(false);
     setSearchList([]);
   }
+
+  const handleEnter = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      handleSearchButtonClick();
+    }
+  };
+
   console.log(searchTerm);
+
   return (
     <>
       <Header />
@@ -177,6 +194,7 @@ export default function MainContent(): JSX.Element {
             <input
               className="search--input"
               onChange={handleSearchTerm}
+              onKeyDown={(e) => handleEnter(e)}
               type="text"
               placeholder="Search a resource"
               value={searchTerm}
