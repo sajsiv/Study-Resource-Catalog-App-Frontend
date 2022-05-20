@@ -11,6 +11,7 @@ import { backendURL } from "../utils/URLs";
 import { TagCloud } from "react-tagcloud";
 import axios from "axios";
 import TagResourceList from "./TagResourceList";
+import RandomResourcePage from "./RandomResourcePage";
 
 interface TagInterface {
   value: string;
@@ -99,6 +100,10 @@ export default function MainContent(): JSX.Element {
     setView("study-list");
   }
 
+  function handleRandomPageClick() {
+    setView("random");
+  }
+
   function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>) {
     setCurrentUser(e.target.value);
     localStorage.setItem("user", e.target.value);
@@ -178,7 +183,7 @@ export default function MainContent(): JSX.Element {
             <button onClick={handleLogOut}>Log Out</button>
           </div>
           <div className="button-bar">
-            <button>See Random</button>
+            <button onClick={handleRandomPageClick}>See Random</button>
             <button>Popular Content</button>
             {currentUser !== (0 || "0") && (
               <button onClick={handleStudyListClick}>My Study List</button>
@@ -251,6 +256,8 @@ export default function MainContent(): JSX.Element {
           <UserRecommendations />
         </>
       )}
+
+      {view === "random" && <RandomResourcePage allResources={allResources} />}
 
       {view === "form" && (
         <>

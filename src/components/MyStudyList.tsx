@@ -68,12 +68,11 @@ export default function MyStudyList(props: MyStudyListProps): JSX.Element {
         key={resource.resourceid}
         loggedInUserId={currentUserid}
       />
-      <button
-        className="like-button"
-        onClick={() => handleDelete(resource.resourceid)}
-      >
-        Remove from Study List
-      </button>
+      <div className="button-container">
+        <button onClick={() => handleDelete(resource.resourceid)}>
+          Remove from Study List
+        </button>
+      </div>
     </>
   ));
 
