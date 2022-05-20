@@ -46,7 +46,8 @@ export default function SingleStudyResourcePage(): JSX.Element {
     },
   ]);
   const { resource_id, user_id } = useParams();
-  console.log(backendURL + "resources/" + resource_id);
+
+  const definedLoggedInUserID: number = user_id ? parseInt(user_id) : 0;
 
   const navigate = useNavigate();
 
@@ -99,7 +100,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
     const requestData: commentDataInterface = {
       commentText: commentInput,
       resourceID: currentResource.resourceid,
-      userID: currentResource.userid,
+      userID: definedLoggedInUserID,
     };
     const response = await axios.post(backendURL + "comments", requestData);
     console.log(response);
@@ -109,7 +110,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
   function handleAddToStudyList() {
     async function postResource() {
       const requestData = {
-        userid: user_id,
+        userid: definedLoggedInUserID,
         resourceid: currentResource.resourceid,
       };
       const response = await axios.post(backendURL + "studylist", requestData);
@@ -141,28 +142,30 @@ export default function SingleStudyResourcePage(): JSX.Element {
           </button>
         )}
       </section>
-      <h1 className="heading-center">Comments</h1>
-      <section className="comments">
-        <h3>Leave a comment:</h3>
-        <textarea
-          className="comment--textarea"
-          onChange={(e) => setCommentText(e.target.value)}
-          value={commentText}
-        ></textarea>
-        <button
-          disabled={!commentText}
-          onClick={() => {
-            handlePostComment(commentText), setTrigger(!trigger);
-          }}
-        >
-          Post your comment
-        </button>
-        {commentData.map((commentObject) => (
-          <p className="comment--info" key={commentObject.commentid}>
-            {commentObject.comment_text}
-          </p>
-        ))}
-      </section>
+      {user_id !== "0" && (
+        <section className="comments">
+          <h1 className="heading-center">Comments</h1>
+          <h3>Leave a comment:</h3>
+          <textarea
+            className="comment--textarea"
+            onChange={(e) => setCommentText(e.target.value)}
+            value={commentText}
+          ></textarea>
+          <button
+            disabled={!commentText}
+            onClick={() => {
+              handlePostComment(commentText), setTrigger(!trigger);
+            }}
+          >
+            Post your comment
+          </button>
+          {commentData.map((commentObject) => (
+            <p className="comment--info" key={commentObject.commentid}>
+              {commentObject.comment_text}
+            </p>
+          ))}
+        </section>
+      )}
       <Footer />
     </>
   );
