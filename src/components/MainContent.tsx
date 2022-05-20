@@ -168,7 +168,7 @@ export default function MainContent(): JSX.Element {
               onChange={handleUserChange}
               value={currentUser}
             >
-              <option value="">-- Select a user --</option>
+              <option value="0">-- Select a user --</option>
               {allUsers.map((user) => (
                 <option key={user.userid} value={user.userid}>
                   {user.name}
@@ -272,7 +272,7 @@ export default function MainContent(): JSX.Element {
           <p className="sub-heading">
             Add resources to your list and work through them at your own pace.
           </p>
-          <MyStudyList userid={parseInt(currentUser)} />
+          <MyStudyList currentUserId={parseInt(currentUser)} />
         </section>
       )}
       <Footer />

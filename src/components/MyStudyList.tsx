@@ -4,7 +4,7 @@ import axios from "axios";
 import { backendURL } from "../utils/URLs";
 
 interface MyStudyListProps {
-  userid: number;
+  currentUserId: number;
 }
 
 interface ResourceDataInterface {
@@ -29,17 +29,17 @@ export default function MyStudyList(props: MyStudyListProps): JSX.Element {
 
   useEffect(() => {
     const fetchStudyList = async () => {
-      const response = await axios.get(backendURL + "studylist");
+      const response = await axios.get(
+        backendURL + "studylist/" + currentUserid
+      );
       const studyListData = await response.data;
       setStudyListArray(studyListData);
     };
     fetchStudyList();
   }, []);
 
-  const userid = props.userid;
-  //do get request and populate studyListArray with response
-  console.log(setStudyListArray);
-  console.log(userid);
+  const currentUserid = props.currentUserId;
+  console.log(currentUserid);
 
   console.log("study list", studyListArray);
 
@@ -58,7 +58,7 @@ export default function MyStudyList(props: MyStudyListProps): JSX.Element {
       userId={resource.userid}
       resourceId={resource.resourceid}
       key={resource.resourceid}
-      loggedInUserId={userid}
+      loggedInUserId={currentUserid}
     />
   ));
 
