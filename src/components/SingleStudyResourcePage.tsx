@@ -5,38 +5,15 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { backendURL } from "../utils/URLs";
 import { useNavigate } from "react-router-dom";
+import {
+  commentDataInputInterface,
+  commentDataInterface,
+  ResourceDataInterface,
+} from "./interfaces";
 
-interface ResourceDataInterface {
-  name: string;
-  author_name: string;
-  url: string;
-  description: string;
-  tags: string;
-  content_type: string;
-  stage: string;
-  original_recommendation: string;
-  recommendation_reasoning: string;
-  userid: number;
-  resourceid: number;
-  creation_date: string;
-}
-
-interface commentDataInterface {
-  commentText: string;
-  resourceID: number;
-  userID: number;
-}
-
-interface commentDataInputInterface {
-  commentid: number;
-  userid: number;
-  resourceid: number;
-  comment_text: string;
-}
-
+//component to display invidual resource when clicked on using react router
 export default function SingleStudyResourcePage(): JSX.Element {
   const [commentText, setCommentText] = useState("");
-  const [trigger, setTrigger] = useState(true);
   const [commentData, setCommentData] = useState<commentDataInputInterface[]>([
     {
       commentid: 0,
@@ -45,12 +22,6 @@ export default function SingleStudyResourcePage(): JSX.Element {
       comment_text: "allo",
     },
   ]);
-  const { resource_id, user_id } = useParams();
-
-  const definedLoggedInUserID: number = user_id ? parseInt(user_id) : 0;
-
-  const navigate = useNavigate();
-
   const [currentResource, setCurrentResources] =
     useState<ResourceDataInterface>({
       name: "",
@@ -66,7 +37,17 @@ export default function SingleStudyResourcePage(): JSX.Element {
       resourceid: 0,
       creation_date: "",
     });
+  //trigger to display comments
+  const [trigger, setTrigger] = useState(true);
 
+  //using the parameters from the react router
+  const { resource_id, user_id } = useParams();
+
+  const definedLoggedInUserID: number = user_id ? parseInt(user_id) : 0;
+
+  const navigate = useNavigate();
+
+  //fetching the relevant resource
   useEffect(
     () => {
       const fetchResourceInfo = async () => {
@@ -83,6 +64,8 @@ export default function SingleStudyResourcePage(): JSX.Element {
     // eslint-disable-next-line
     []
   );
+
+  //fetching comments for the resource
   useEffect(() => {
     const fetchCommentInfo = async () => {
       console.log(backendURL + "resources/" + "comments/" + resource_id);
@@ -96,6 +79,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
     fetchCommentInfo();
   }, [trigger]);
 
+  //post comment with the logged in user
   async function handlePostComment(commentInput: string) {
     const requestData: commentDataInterface = {
       commentText: commentInput,
@@ -107,6 +91,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
     setCommentText("");
   }
 
+  //allowing logged in user to add the resource to their study list
   function handleAddToStudyList() {
     async function postResource() {
       const requestData = {
@@ -122,6 +107,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
   return (
     <>
       <Header />
+      {/*using react router to go back to the home page */}
       <button className="home--button" onClick={() => navigate(-1)}>
         Home
       </button>
@@ -136,6 +122,7 @@ export default function SingleStudyResourcePage(): JSX.Element {
         <h3>{currentResource.stage}</h3>
         <h3>{currentResource.original_recommendation}</h3>
         <p>{currentResource.recommendation_reasoning}</p>
+        {/*logic to only display the add to study list button  and comments if the user is logged in*/}
         {user_id !== "0" && (
           <button className="like-button" onClick={handleAddToStudyList}>
             Add to Study List
