@@ -18,22 +18,22 @@ export interface ResourceDataInterface {
 export default function RandomResourcePage(props: {
   allResources: ResourceDataInterface[];
 }): JSX.Element {
+  //total number of resources
   const arrayLength = props.allResources.length;
-  console.log(arrayLength);
 
-  function getRandomNumber(arrayLength: number) {
-    return Math.floor(Math.random() * arrayLength);
+  //helper function to generate a random number between 1 and max
+  function getRandomNumber(max: number) {
+    return Math.floor(Math.random() * max);
   }
-
+  // usestate to store a random resource from the resource array on page load
   const [currentResource, setCurrentResource] = useState(
     props.allResources[getRandomNumber(arrayLength)]
   );
 
+  // function to generate a new random resource and store it in the currentResource useState
   function handleReload() {
     setCurrentResource(props.allResources[getRandomNumber(arrayLength)]);
   }
-
-  console.log(currentResource);
 
   return (
     <>

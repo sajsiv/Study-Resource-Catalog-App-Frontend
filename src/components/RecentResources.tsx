@@ -5,6 +5,7 @@ export default function RecentResources(props: {
   allResources: ResourceDataInterface[];
   loggedInUserId: number;
 }): JSX.Element {
+  // component contains list of 10 most recently added resources mapped to the SingleStudyResource component
   return (
     <>
       <h1 className="heading">Recent Resources</h1>
@@ -12,7 +13,7 @@ export default function RecentResources(props: {
         Find the latest study resources being shared by members!
       </p>
       <div className="resource-list">
-        {props.allResources.slice(0, 5).map((resource) => (
+        {props.allResources.slice(0, 10).map((resource) => (
           <SingleStudyResource
             key={resource.resourceid}
             resourceName={resource.name}
