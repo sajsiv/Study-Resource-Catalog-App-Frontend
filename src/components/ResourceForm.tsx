@@ -16,6 +16,7 @@ interface FormDataInterface {
 }
 
 export default function ResourceForm(props: { userid: number }): JSX.Element {
+  //useState to hold stored form data inputs prior to posting to backend
   const [formData, setFormData] = useState<FormDataInterface>({
     resourceName: "",
     authorName: "",
@@ -64,7 +65,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
     "I do not recommend this resource, having used it",
     "I haven't used this resource but it looks promising",
   ];
-
+  // function to store form data inputs to formData useState maintaining a single source of truth
   function handleFormChange(
     event:
       | React.ChangeEvent<HTMLTextAreaElement>
@@ -76,7 +77,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
       return { ...previous, [name]: value };
     });
   }
-
+  // function to send a post request to discord webhook when a user adds a resource with relevant resource info included
   function handleDiscordPost() {
     const request = new XMLHttpRequest();
     request.open(
@@ -89,7 +90,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
     };
     request.send(JSON.stringify(params));
   }
-
+  // function to post data stored in formData useState to backend and call the discord post function on submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const response = await axios.post(backendURL + "resources", formData);
