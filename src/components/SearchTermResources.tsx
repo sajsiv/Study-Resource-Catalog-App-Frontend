@@ -1,7 +1,7 @@
 import SingleStudyResource from "./SingleStudyResource";
-
 import { ResourceDataInterface } from "./interfaces";
-
+//searchTermResources function takes in a prop containing the array, allResources, of type searchTermResources and a logged in userid
+//searchTermResources function returns a SingleStudyResource component for each element in allResources
 export default function searchTermResources(props: {
   allResources: ResourceDataInterface[];
   loggedInUserId: number;
