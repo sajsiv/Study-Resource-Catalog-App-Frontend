@@ -22,3 +22,38 @@ export interface AllUsersInterface {
   name: string;
   userid: number;
 }
+
+export interface SingleStudyResourceProps {
+  resourceName: string;
+  authorName: string;
+  URL: string;
+  description: string;
+  tags: string;
+  resourceType: string;
+  buildPhaseWeek: string;
+  recommendation: string;
+  reasonForRecommendation: string;
+  creationDate: string;
+  userId: number;
+  resourceId: number;
+  loggedInUserId: number;
+}
+
+export interface likeDataInterface {
+  likeValue: boolean;
+  resourceID: number;
+  userID: number;
+}
+
+export interface commentDataInterface {
+  commentText: string;
+  resourceID: number;
+  userID: number;
+}
+
+export interface commentDataInputInterface {
+  commentid: number;
+  userid: number;
+  resourceid: number;
+  comment_text: string;
+}

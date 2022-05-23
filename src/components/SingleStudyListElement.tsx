@@ -1,51 +1,34 @@
 import axios from "axios";
 import { backendURL, frontendURL } from "../utils/URLs";
+import { SingleStudyResourceProps, likeDataInterface } from "./interfaces";
 
-interface SingleStudyResourceProps {
-  resourceName: string;
-  authorName: string;
-  URL: string;
-  description: string;
-  tags: string;
-  resourceType: string;
-  buildPhaseWeek: string;
-  recommendation: string;
-  reasonForRecommendation: string;
-  creationDate: string;
-  userId: number;
-  resourceId: number;
-  loggedInUserId: number;
-}
-interface likeDataInterface {
-  likeValue: boolean;
-  resourceID: number;
-  userID: number;
-}
-
-export default function SingleStudyResource(
+//component used for MyStudyList component
+export default function SingleStudyListElement(
   props: SingleStudyResourceProps
 ): JSX.Element {
+  //adding like for each resource and posting to backend
   async function handleLike() {
     const requestData: likeDataInterface = {
       likeValue: true,
       resourceID: props.resourceId,
       userID: props.userId,
     };
-    const response = await axios.post(backendURL + "likes", requestData);
-    console.log(response);
+    await axios.post(backendURL + "likes", requestData);
   }
+
+  //adding dislike for each resource and posting to backend
   async function handleDislike() {
     const requestData: likeDataInterface = {
       likeValue: false,
       resourceID: props.resourceId,
       userID: props.userId,
     };
-    const response = await axios.post(backendURL + "likes", requestData);
-    console.log(response);
+    await axios.post(backendURL + "likes", requestData);
   }
 
   return (
     <div>
+      {/*link to the single study resource page which includes the logged in user id */}
       <a
         href={
           frontendURL +
