@@ -76,7 +76,7 @@ export default function MainContent(): JSX.Element {
     fetchResources();
   }, []);
 
- // get logged in userid from locally stored data, so someone who has logged in earlier will stayed logged in 
+  // get logged in userid from locally stored data, so someone who has logged in earlier will stayed logged in
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
@@ -117,19 +117,21 @@ export default function MainContent(): JSX.Element {
     localStorage.setItem("user", e.target.value);
   }
 
-// "0" is our id for a logged out user
+  // "0" is our id for a logged out user
   function handleLogOut() {
     setCurrentUser("0");
   }
 
-// filter searched terms by what has been entered into the search box
+  // filter searched terms by what has been entered into the search box
   function handleSearchButtonClick() {
     setSearchList(
       allResources.filter(
         (object) =>
           object.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           object.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          object.content_type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          object.content_type
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
           object.stage.toLowerCase().includes(searchTerm.toLowerCase()) ||
           object.tags.toLowerCase().includes(searchTerm.toLowerCase()) ||
           object.author_name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -140,12 +142,12 @@ export default function MainContent(): JSX.Element {
   }
 
   const data = countArrayOfTags;
-  
+
   // fitlers our resources the tags selected
   function handleTagClick(tagValue: string) {
-     setDisplayedResources(
-          allResources.filter((object) => object.tags.includes(tagValue))
-        ),
+    setDisplayedResources(
+      allResources.filter((object) => object.tags.includes(tagValue))
+    ),
       setIsTagSelected(true);
   }
 
