@@ -78,7 +78,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
     });
   }
   // function to send a post request to discord webhook when a user adds a resource with relevant resource info included
-  function handleDiscordPost() {
+  function handleDiscordPost(endpoint: number) {
     const request = new XMLHttpRequest();
     request.open(
       "POST",
@@ -86,7 +86,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
     );
     request.setRequestHeader("Content-type", "application/json");
     const params = {
-      content: `Title: ${formData.resourceName}, resource link: ${formData.URL}, check out new resource: www.academy-study-resources.netlify.app`,
+      content: `Title: ${formData.resourceName}, resource link: ${formData.URL}, check out new resource:  https://www.academy-study-resources.netlify.app/${endpoint}`,
     };
     request.send(JSON.stringify(params));
   }
@@ -94,7 +94,8 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const response = await axios.post(backendURL + "resources", formData);
-    console.log(response);
+    const currentResourceid = response.data.data.info[0].resourceid
+    handleDiscordPost(currentResourceid);
     setFormData({
       resourceName: "",
       authorName: "",
@@ -107,7 +108,7 @@ export default function ResourceForm(props: { userid: number }): JSX.Element {
       reasonForRecommendation: "",
       userid: props.userid,
     });
-    handleDiscordPost();
+  
   };
 
   return (
