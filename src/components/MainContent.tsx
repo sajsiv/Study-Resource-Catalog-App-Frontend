@@ -19,23 +19,28 @@ interface TagInterface {
 }
 
 export default function MainContent(): JSX.Element {
+  //useState to conditionally render pages based on what view we want
   const [view, setView] = useState<
     "home" | "form" | "study-list" | "resource" | "random"
   >("home");
   const [searchTerm, setSearchTerm] = useState("");
+  // store all the resources we fetch from our backend in an array of objects
   const [allResources, setAllResources] = useState<ResourceDataInterface[]>([]);
   const [isSearchTermClicked, setIsSearchTermClicked] =
     useState<boolean>(false);
   const [searchList, setSearchList] = useState<ResourceDataInterface[]>([]);
-  // const [currentTag, setCurrentTag] = useState<string>("");
+  // gives tags a number for their size based on aggregate count
   const [countArrayOfTags, setCountArrayOfTags] = useState<TagInterface[]>([]);
   const [isTagSelected, setIsTagSelected] = useState<boolean>(false);
   const [allUsers, setAllUsers] = useState<AllUsersInterface[]>([]);
+  // sets who is logged in by their user id number
   const [currentUser, setCurrentUser] = useState<string>("0");
+  // 5 most recent resources from all resources
   const [displayedResources, setDisplayedResources] = useState<
     ResourceDataInterface[]
   >([]);
 
+  //fetch all our resources and their associated resource tags (splitting the tag string into an array of tags and adding their count)
   useEffect(() => {
     let tempArray = [];
     const arrayOfTags: string[] = [];
@@ -71,6 +76,7 @@ export default function MainContent(): JSX.Element {
     fetchResources();
   }, []);
 
+  // get logged in userid from locally stored data, so someone who has logged in earlier will stayed logged in
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
@@ -79,6 +85,7 @@ export default function MainContent(): JSX.Element {
     }
   }, []);
 
+  // fetch our list of users from the backend, users are displayed in our log in drop down
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await axios.get(backendURL + "users");
@@ -104,25 +111,30 @@ export default function MainContent(): JSX.Element {
     setView("random");
   }
 
+  // stores the logged in user as a cookie on the users browser storage
   function handleUserChange(e: React.ChangeEvent<HTMLSelectElement>) {
     setCurrentUser(e.target.value);
     localStorage.setItem("user", e.target.value);
   }
 
+  // "0" is our id for a logged out user
   function handleLogOut() {
     setCurrentUser("0");
   }
 
+  // filter searched terms by what has been entered into the search box
   function handleSearchButtonClick() {
     setSearchList(
       allResources.filter(
         (object) =>
-          object.name.includes(searchTerm) ||
-          object.description.includes(searchTerm) ||
-          object.content_type.includes(searchTerm) ||
-          object.stage.includes(searchTerm) ||
-          object.tags.includes(searchTerm) ||
-          object.author_name.includes(searchTerm)
+          object.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          object.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          object.content_type
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          object.stage.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          object.tags.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          object.author_name.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
 
@@ -131,16 +143,12 @@ export default function MainContent(): JSX.Element {
 
   const data = countArrayOfTags;
 
+  // fitlers our resources the tags selected
   function handleTagClick(tagValue: string) {
-    searchList.length > 0
-      ? setSearchList(
-          searchList.filter((object) => object.tags.includes(tagValue))
-        )
-      : setDisplayedResources(
-          allResources.filter((object) => object.tags.includes(tagValue))
-        ),
+    setDisplayedResources(
+      allResources.filter((object) => object.tags.includes(tagValue))
+    ),
       setIsTagSelected(true);
-    console.log(displayedResources);
   }
 
   function handleSearchTerm(event: React.ChangeEvent<HTMLInputElement>) {
@@ -160,11 +168,10 @@ export default function MainContent(): JSX.Element {
     }
   };
 
-  console.log(searchTerm);
-
   return (
     <>
       <Header />
+      {/* rendering on the homepage */}
       {view === "home" && (
         <>
           <div className="login">
@@ -256,9 +263,9 @@ export default function MainContent(): JSX.Element {
           <UserRecommendations />
         </>
       )}
-
+      {/* rendering on when we click to the random page */}
       {view === "random" && <RandomResourcePage allResources={allResources} />}
-
+      {/* rendering on when we click to the form*/}
       {view === "form" && (
         <>
           <div className="button-bar">
@@ -269,7 +276,7 @@ export default function MainContent(): JSX.Element {
           <ResourceForm userid={parseInt(currentUser)} />
         </>
       )}
-
+      {/* rendering on when we click to the study-list*/}
       {view === "study-list" && (
         <section className="study-list">
           <div className="button-bar">
