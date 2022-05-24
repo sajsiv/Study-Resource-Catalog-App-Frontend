@@ -5,6 +5,8 @@ export default function RecentResources(props: {
   allResources: ResourceDataInterface[];
   loggedInUserId: number;
 }): JSX.Element {
+
+  //this function has resources which match the tag selected passed down as props, the 5 most recent tag-matched resources are then mapped onto 5 study resource tiles and diplayed
   return (
     <>
       <div className="resource-list">
